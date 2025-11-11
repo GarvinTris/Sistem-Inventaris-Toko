@@ -4,7 +4,7 @@ Tanggal masuk dan keluar pada barang, mengindentifikasi jenis barang, mengkelomp
 
 Nama Aplikasi
 
-Fitur Fitur yang kami kembangkan :
+Class terdiri dari :
 - **Barang**
 - **Jenis**
 - **Kelompok Aset**
@@ -15,6 +15,10 @@ Fitur Fitur yang kami kembangkan :
 - **Satuan**
 - **Staff**
 
+Fitur-Fitur yang kami kembangkan :
+- **Menambahkan
+- Menghapus
+- Mengedit**
 Usage
 
 
