@@ -1,26 +1,79 @@
-class User {
-  constructor(id_user, nama, username, email, no_telepon, alamat) {
-    this.id_user = id_user;
-    this.nama = nama;
-    this.username = username;
-    this.email = email;
-    this.no_telepon = no_telepon;
-    this.alamat = alamat;
-  }
+public class User {
+    // ======== FIELD (sesuai tabel User) ========
+    private int idUser;             // INT(11) PK
+    private String nama;            // VARCHAR(100)
+    private String username;        // VARCHAR(50)
+    private String email;           // VARCHAR(100)
+    private String noTelepon;       // VARCHAR(20)
+    private String alamat;          // VARCHAR(100)
 
-  tampilkanInfo() {
-    console.log(`=== DATA USER ===`);
-    console.log(`ID User     : ${this.id_user}`);
-    console.log(`Nama        : ${this.nama}`);
-    console.log(`Username    : ${this.username}`);
-    console.log(`Email       : ${this.email}`);
-    console.log(`No Telepon  : ${this.no_telepon}`);
-    console.log(`Alamat      : ${this.alamat}`);
-  }
+    // ======== CONSTRUCTOR ========
+    public User(int idUser, String nama, String username, String email, String noTelepon, String alamat) {
+        this.idUser = idUser;
+        this.nama = nama;
+        this.username = username;
+        this.email = email;
+        this.noTelepon = noTelepon;
+        this.alamat = alamat;
+    }
+
+    // ======== GETTER & SETTER ========
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNoTelepon() {
+        return noTelepon;
+    }
+
+    public void setNoTelepon(String noTelepon) {
+        this.noTelepon = noTelepon;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    // ======== METHOD TAMBAHAN ========
+    public void tampilkanInfo() {
+        System.out.println("=== DATA USER ===");
+        System.out.println("ID User    : " + idUser);
+        System.out.println("Nama       : " + nama);
+        System.out.println("Username   : " + username);
+        System.out.println("Email      : " + email);
+        System.out.println("No Telepon : " + noTelepon);
+        System.out.println("Alamat     : " + alamat);
+    }
 }
-
-// === Contoh penggunaan ===
-const user1 = new User(1, "Syafira Naura", "syafira123", "syafira@mail.com", "081234567890", "Medan");
-user1.tampilkanInfo();
-
-export default User;
