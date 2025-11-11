@@ -16,9 +16,9 @@ Class terdiri dari :
 - **Staff**
 
 Fitur-Fitur yang kami kembangkan :
-- **Menambahkan
-- Menghapus
-- Mengedit**
+- **Menambahkan**
+- **Menghapus**
+- **Mengedit**
 Usage
 
 
