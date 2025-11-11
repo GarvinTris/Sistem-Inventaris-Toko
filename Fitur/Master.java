@@ -1,7 +1,7 @@
 public class Master {
   
     private int idMaster;       // INT(11)
-    private int idUser;         // INT(11) FK -> User
+    private user idUser;         // INT(11) FK -> User
     private int noMaster;       // INT(11)
     private String file;        // VARCHAR(50)
     private int status;         // INT(11)
