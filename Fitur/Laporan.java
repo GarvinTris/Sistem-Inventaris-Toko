@@ -1,23 +1,31 @@
-public class User {
- 
-    private int idUser;             // INT(11) PK
-    private String nama;            // VARCHAR(100)
-    private String username;        // VARCHAR(50)
-    private String email;           // VARCHAR(100)
-    private String noTelepon;       // VARCHAR(20)
-    private String alamat;          // VARCHAR(100)
+public class Laporan {
+    // ======== FIELD (sesuai tabel Laporan) ========
+    private int idLaporan;       // INT(11)
+    private int idUser;          // INT(11) FK -> User
+    private String namaLaporan;  // VARCHAR(128)
+    private int awalLaporan;     // INT(11)
+    private int akhirLaporan;    // INT(11)
+    private int dateCreated;     // INT(11)
 
- 
-    public User(int idUser, String nama, String username, String email, String noTelepon, String alamat) {
+    // ======== CONSTRUCTOR ========
+    public Laporan(int idLaporan, int idUser, String namaLaporan, int awalLaporan, int akhirLaporan, int dateCreated) {
+        this.idLaporan = idLaporan;
         this.idUser = idUser;
-        this.nama = nama;
-        this.username = username;
-        this.email = email;
-        this.noTelepon = noTelepon;
-        this.alamat = alamat;
+        this.namaLaporan = namaLaporan;
+        this.awalLaporan = awalLaporan;
+        this.akhirLaporan = akhirLaporan;
+        this.dateCreated = dateCreated;
     }
 
-   
+    // ======== GETTER & SETTER ========
+    public int getIdLaporan() {
+        return idLaporan;
+    }
+
+    public void setIdLaporan(int idLaporan) {
+        this.idLaporan = idLaporan;
+    }
+
     public int getIdUser() {
         return idUser;
     }
@@ -26,54 +34,46 @@ public class User {
         this.idUser = idUser;
     }
 
-    public String getNama() {
-        return nama;
+    public String getNamaLaporan() {
+        return namaLaporan;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setNamaLaporan(String namaLaporan) {
+        this.namaLaporan = namaLaporan;
     }
 
-    public String getUsername() {
-        return username;
+    public int getAwalLaporan() {
+        return awalLaporan;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAwalLaporan(int awalLaporan) {
+        this.awalLaporan = awalLaporan;
     }
 
-    public String getEmail() {
-        return email;
+    public int getAkhirLaporan() {
+        return akhirLaporan;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAkhirLaporan(int akhirLaporan) {
+        this.akhirLaporan = akhirLaporan;
     }
 
-    public String getNoTelepon() {
-        return noTelepon;
+    public int getDateCreated() {
+        return dateCreated;
     }
 
-    public void setNoTelepon(String noTelepon) {
-        this.noTelepon = noTelepon;
+    public void setDateCreated(int dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
-    public String getAlamat() {
-        return alamat;
-    }
-
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
-    }
-
-   
-    public void tampilkanInfo() {
-        System.out.println("=== DATA USER ===");
-        System.out.println("ID User    : " + idUser);
-        System.out.println("Nama       : " + nama);
-        System.out.println("Username   : " + username);
-        System.out.println("Email      : " + email);
-        System.out.println("No Telepon : " + noTelepon);
-        System.out.println("Alamat     : " + alamat);
+    // ======== METHOD TAMBAHAN ========
+    public void tampilkanLaporan(User user) {
+        System.out.println("=== LAPORAN ===");
+        System.out.println("ID Laporan   : " + idLaporan);
+        System.out.println("Nama Laporan : " + namaLaporan);
+        System.out.println("Awal         : " + awalLaporan);
+        System.out.println("Akhir        : " + akhirLaporan);
+        System.out.println("Tanggal Buat : " + dateCreated);
+        System.out.println("Dibuat oleh  : " + user.getNama());
     }
 }
