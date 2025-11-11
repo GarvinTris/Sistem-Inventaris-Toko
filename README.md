@@ -3,9 +3,11 @@ Sistem ini merupakan pencatatan barang kepemilikan perusahaan atau toko sebagai 
 Tanggal masuk dan keluar pada barang, mengindentifikasi jenis barang, mengkelompokan barang menjadi aset, membuat laporan sebagaimana ada perubahan yang melibatkan staff/karyawan, Satuan,  Perhitungan fisik yang penghitungan langsung barang yang benar-benar ada secara nyata di lapangan, Perhitungan hasil merupakan jumlah barang yang tercatat. 
 
 **Tujuan**
+
 Memudahkan Toko yang memantau aset dengan seksama serta memiliki bukti yang rinci mengenai aset tersebut, khususnya pada Toko Tunggal, untuk menghindari ketidakpastian 
 
 **Aplikasi**
+
 StockOne merupakan
 
 Class Diagram terdiri dari :
