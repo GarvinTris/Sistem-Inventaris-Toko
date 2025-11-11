@@ -3,8 +3,20 @@ Sistem ini merupakan pencatatan barang kepemilikan perusahaan atau toko sebagai 
 Tanggal masuk dan keluar pada barang, mengindentifikasi jenis barang, mengkelompokan barang menjadi aset, membuat laporan sebagaimana ada perubahan yang melibatkan staff/karyawan, Satuan,  Perhitungan fisik yang penghitungan langsung barang yang benar-benar ada secara nyata di lapangan, Perhitungan hasil merupakan jumlah barang yang tercatat. 
 
 Nama Aplikasi
-Nama Fitur
+Fitur Fitur yang kami kembangkan :
+- **Barang**
+- **Jenis**
+- **Kelompok Aset**
+- **Laporan**
+- **Master**
+- **Perhitungan Fisik**
+- **Perhitungan Hasil**
+- **Satuan**
+- **Staff**
+
 Project Member
+
 Usage
 
 
+kelompok terdiri dari : Garvin, Steven, Mikha, Naura
