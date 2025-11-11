@@ -1,14 +1,12 @@
 public class User {
-    // ======== FIELD (sesuai tabel User) ========
-    private int idUser;             // INT(11) PK
+     private int idUser;             // INT(11) PK
     private String nama;            // VARCHAR(100)
     private String username;        // VARCHAR(50)
     private String email;           // VARCHAR(100)
     private String noTelepon;       // VARCHAR(20)
     private String alamat;          // VARCHAR(100)
 
-    // ======== CONSTRUCTOR ========
-    public User(int idUser, String nama, String username, String email, String noTelepon, String alamat) {
+   public User(int idUser, String nama, String username, String email, String noTelepon, String alamat) {
         this.idUser = idUser;
         this.nama = nama;
         this.username = username;
@@ -17,7 +15,7 @@ public class User {
         this.alamat = alamat;
     }
 
-    // ======== GETTER & SETTER ========
+    
     public int getIdUser() {
         return idUser;
     }
@@ -66,8 +64,7 @@ public class User {
         this.alamat = alamat;
     }
 
-    // ======== METHOD TAMBAHAN ========
-    public void tampilkanInfo() {
+     public void tampilkanInfo() {
         System.out.println("=== DATA USER ===");
         System.out.println("ID User    : " + idUser);
         System.out.println("Nama       : " + nama);
