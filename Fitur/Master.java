@@ -1,5 +1,5 @@
 public class Master {
-    // ======== FIELD (sesuai tabel Master) ========
+  
     private int idMaster;       // INT(11)
     private int idUser;         // INT(11) FK -> User
     private int noMaster;       // INT(11)
@@ -8,7 +8,7 @@ public class Master {
     private int tanggalInput;   // INT(11)
     private int dateCreated;    // INT(11)
 
-    // ======== CONSTRUCTOR ========
+  
     public Master(int idMaster, int idUser, int noMaster, String file, int status, int tanggalInput, int dateCreated) {
         this.idMaster = idMaster;
         this.idUser = idUser;
@@ -19,7 +19,7 @@ public class Master {
         this.dateCreated = dateCreated;
     }
 
-    // ======== GETTER & SETTER ========
+   
     public int getIdMaster() {
         return idMaster;
     }
@@ -76,7 +76,7 @@ public class Master {
         this.dateCreated = dateCreated;
     }
 
-    // ======== METHOD TAMBAHAN ========
+   
     public void tampilkanMaster(User user) {
         System.out.println("=== MASTER DATA ===");
         System.out.println("ID Master     : " + idMaster);
