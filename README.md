@@ -14,8 +14,6 @@ Fitur Fitur yang kami kembangkan :
 - **Satuan**
 - **Staff**
 
-Project Member
-
 Usage
 
 
