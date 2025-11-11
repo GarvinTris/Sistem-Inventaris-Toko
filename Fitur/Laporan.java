@@ -1,7 +1,7 @@
 public class Laporan {
    
     private int idLaporan;       // INT(11)
-    private int idUser;          // INT(11) FK -> User
+    private User idUser;          // INT(11) FK -> User
     private String namaLaporan;  // VARCHAR(128)
     private int awalLaporan;     // INT(11)
     private int akhirLaporan;    // INT(11)
