@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Barang_Masuk {
+public class Barang_Masuk_Keluar {
     int id_barang_masuk;
     Master id_master;
     Barang id_barang;
