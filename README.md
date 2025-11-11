@@ -4,8 +4,9 @@ Tanggal masuk dan keluar pada barang, mengindentifikasi jenis barang, mengkelomp
 
 Nama Aplikasi
 
-Class terdiri dari :
+Class Diagram terdiri dari :
 - **Barang**
+- **Barang Masuk & Keluar**
 - **Jenis**
 - **Kelompok Aset**
 - **Laporan**
