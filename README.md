@@ -3,6 +3,7 @@ Sistem ini merupakan pencatatan barang kepemilikan perusahaan atau toko sebagai 
 Tanggal masuk dan keluar pada barang, mengindentifikasi jenis barang, mengkelompokan barang menjadi aset, membuat laporan sebagaimana ada perubahan yang melibatkan staff/karyawan, Satuan,  Perhitungan fisik yang penghitungan langsung barang yang benar-benar ada secara nyata di lapangan, Perhitungan hasil merupakan jumlah barang yang tercatat. 
 
 **Tujuan**
+
 Tujuan utama pengembangan StockOne adalah membantu pemilik toko dan karyawan dalam mengelola serta memantau stok barang dengan lebih mudah, cepat, dan teratur. Sistem ini membuat proses pencatatan barang masuk dan keluar menjadi lebih praktis tanpa perlu dilakukan secara manual, sehingga dapat mengurangi kesalahan dan kehilangan data.
 Selain itu, sistem ini memastikan setiap aset toko terawasi dengan baik — mulai dari jenis, jumlah, hingga kondisinya — agar tidak terjadi kekeliruan dalam stok maupun laporan. Dengan adanya StockOne, pemilik toko dapat mengetahui ketersediaan barang secara akurat, serta memiliki bukti pencatatan yang jelas untuk mendukung pengambilan keputusan, seperti penambahan stok atau perbaikan aset. Secara keseluruhan, StockOne bertujuan untuk mempermudah pekerjaan, menghemat waktu, dan menciptakan sistem pengelolaan inventaris yang lebih profesional, efisien, dan transparan, khususnya bagi toko-toko kecil yang belum memiliki sistem digital. 
 
