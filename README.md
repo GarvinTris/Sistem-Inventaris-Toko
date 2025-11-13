@@ -3,30 +3,34 @@ Sistem ini merupakan pencatatan barang kepemilikan perusahaan atau toko sebagai 
 Tanggal masuk dan keluar pada barang, mengindentifikasi jenis barang, mengkelompokan barang menjadi aset, membuat laporan sebagaimana ada perubahan yang melibatkan staff/karyawan, Satuan,  Perhitungan fisik yang penghitungan langsung barang yang benar-benar ada secara nyata di lapangan, Perhitungan hasil merupakan jumlah barang yang tercatat. 
 
 **Tujuan**
-
-Memudahkan Toko yang memantau aset dengan seksama serta memiliki bukti yang rinci mengenai aset tersebut, khususnya pada Toko Tunggal, untuk menghindari ketidakpastian 
+Tujuan utama pengembangan StockOne adalah membantu pemilik toko dan karyawan dalam mengelola serta memantau stok barang dengan lebih mudah, cepat, dan teratur. Sistem ini membuat proses pencatatan barang masuk dan keluar menjadi lebih praktis tanpa perlu dilakukan secara manual, sehingga dapat mengurangi kesalahan dan kehilangan data.
+Selain itu, sistem ini memastikan setiap aset toko terawasi dengan baik — mulai dari jenis, jumlah, hingga kondisinya — agar tidak terjadi kekeliruan dalam stok maupun laporan. Dengan adanya StockOne, pemilik toko dapat mengetahui ketersediaan barang secara akurat, serta memiliki bukti pencatatan yang jelas untuk mendukung pengambilan keputusan, seperti penambahan stok atau perbaikan aset. Secara keseluruhan, StockOne bertujuan untuk mempermudah pekerjaan, menghemat waktu, dan menciptakan sistem pengelolaan inventaris yang lebih profesional, efisien, dan transparan, khususnya bagi toko-toko kecil yang belum memiliki sistem digital. 
 
 **Aplikasi**
 
-StockOne merupakan
+StockOne adalah aplikasi inventaris berbasis data yang menyediakan fitur utama untuk:
+- Mencatat barang masuk dan keluar beserta tanggalnya.
+- Mengelompokkan barang berdasarkan jenis, satuan, dan kelompok aset.
+- Menyimpan data hasil perhitungan fisik dan perhitungan hasil (stok aktual vs stok sistem).
+- Menghasilkan laporan otomatis yang mencatat setiap perubahan data aset, termasuk siapa (staff) yang melakukan perubahan.
+- Menyediakan dashboard monitoring untuk memudahkan admin atau pemilik toko melihat kondisi aset terkini.
 
 Class Diagram terdiri dari :
-- **Barang**
-- **Barang Masuk & Keluar**
-- **Jenis**
-- **Kelompok Aset**
-- **Laporan**
-- **Master**
-- **Perhitungan Fisik**
-- **Perhitungan Hasil**
-- **Satuan**
-- **Staff**
+- Barang → Menyimpan data barang seperti nama, kode, jumlah, dan satuan.
+- Barang Masuk & Barang Keluar → Mencatat transaksi barang yang masuk dan keluar beserta tanggal serta jumlahnya.
+- Jenis → Mengelompokkan barang berdasarkan kategori atau tipe.
+- Kelompok Aset → Mengatur klasifikasi barang sebagai aset tetap atau operasional.
+- Laporan → Mencatat setiap perubahan dan aktivitas dalam sistem oleh staff.
+- Master → Menjadi pusat data utama untuk referensi kategori, satuan, dan jenis barang.
+- Perhitungan Fisik → Menyimpan hasil pengecekan langsung terhadap stok barang di lapangan.
+- Perhitungan Hasil → Membandingkan hasil stok fisik dengan data yang tercatat di sistem.
+- Satuan → Menentukan satuan pengukuran barang seperti unit, pcs, atau liter.
+- Staff → Menyimpan data pengguna atau karyawan yang menggunakan sistem.
 
-Fitur-Fitur yang kami kembangkan :
-- **Menambahkan**
-- **Menghapus**
-- **Mengedit**
-Usage
-
+Fitur-Fitur yang Kami Kembangkan
+- Menambahkan → Untuk memasukkan data baru seperti barang, jenis, atau aset ke dalam sistem.
+- Menghapus → Untuk menghapus data yang tidak diperlukan agar data tetap akurat.
+- Mengedit → Untuk memperbarui informasi barang atau aset sesuai kondisi terkini.
+- Usage (Penggunaan) → Untuk mencatat dan memantau penggunaan barang dalam operasional toko.
 
 kelompok terdiri dari : Garvin, Steven, Mikha, Naura
