@@ -96,4 +96,19 @@ public class Barang {
         this.created_at = created_at;
     }
 
+    public String getSerial() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSerial'");
+    }
+
+    public String getTanggal_masuk() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTanggal_masuk'");
+    }
+
+    public String getKondisi() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getKondisi'");
+    }
+
 }

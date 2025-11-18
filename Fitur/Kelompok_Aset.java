@@ -24,4 +24,3 @@ public class Kelompok_Aset {
     }
 
 }
-
