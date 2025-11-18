@@ -1,47 +1,48 @@
 public class Jenis_Barang {
-    public int id_jenis_barang;
-    public Kelompok_Aset id_kelompok_aset;
-    public String nama_jenis_barang;
-    public String keterangan;
+    private int Id_Jenis_Barang;
+    private int Id_Kelompok_Aset;
+    private int Nama_Jenis_Barang;
+    private String Keterangan;
 
-    public Jenis_Barang(int id_jenis_barang, Kelompok_Aset id_kelompok_aset, String nama_jenis_barang,
-            String keterangan) {
-        this.id_jenis_barang = id_jenis_barang;
-        this.id_kelompok_aset = id_kelompok_aset;
-        this.nama_jenis_barang = nama_jenis_barang;
-        this.keterangan = keterangan;
+    public Jenis_Barang() {
     }
 
-    public int getId_jenis_barang() {
-        return id_jenis_barang;
+    public Jenis_Barang(int Id_Jenis_Barang, int Id_Kelompok_Aset, int Nama_Jenis_Barang, String Keterangan) {
+        this.Id_Jenis_Barang = Id_Jenis_Barang;
+        this.Id_Kelompok_Aset = Id_Kelompok_Aset;
+        this.Nama_Jenis_Barang = Nama_Jenis_Barang;
+        this.Keterangan = Keterangan;
     }
 
-    public void setId_jenis_barang(int id_jenis_barang) {
-        this.id_jenis_barang = id_jenis_barang;
+    public int getId_Jenis_Barang() {
+        return Id_Jenis_Barang;
     }
 
-    public Kelompok_Aset getId_kelompok_aset() {
-        return id_kelompok_aset;
+    public void setId_Jenis_Barang(int Id_Jenis_Barang) {
+        this.Id_Jenis_Barang = Id_Jenis_Barang;
     }
 
-    public void setId_kelompok_aset(Kelompok_Aset id_kelompok_aset) {
-        this.id_kelompok_aset = id_kelompok_aset;
+    public int getId_Kelompok_Aset() {
+        return Id_Kelompok_Aset;
     }
 
-    public String getNama_jenis_barang() {
-        return nama_jenis_barang;
+    public void setId_Kelompok_Aset(int Id_Kelompok_Aset) {
+        this.Id_Kelompok_Aset = Id_Kelompok_Aset;
     }
 
-    public void setNama_jenis_barang(String nama_jenis_barang) {
-        this.nama_jenis_barang = nama_jenis_barang;
+    public int getNama_Jenis_Barang() {
+        return Nama_Jenis_Barang;
+    }
+
+    public void setNama_Jenis_Barang(int Nama_Jenis_Barang) {
+        this.Nama_Jenis_Barang = Nama_Jenis_Barang;
     }
 
     public String getKeterangan() {
-        return keterangan;
+        return Keterangan;
     }
 
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
+    public void setKeterangan(String Keterangan) {
+        this.Keterangan = Keterangan;
     }
-
 }
