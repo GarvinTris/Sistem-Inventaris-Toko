@@ -2,7 +2,7 @@ public class Jenis_Barang {
     public int id_jenis_barang;
     public Kelompok_Aset id_kelompok_aset;
     public String nama_jenis_barang;
-    public string keterangan;
+    public String keterangan;
 
     public Jenis_Barang(int id_jenis_barang, Kelompok_Aset id_kelompok_aset, String nama_jenis_barang,
             String keterangan) {
@@ -36,13 +36,12 @@ public class Jenis_Barang {
         this.nama_jenis_barang = nama_jenis_barang;
     }
 
-    public string getKeterangan() {
+    public String getKeterangan() {
         return keterangan;
     }
 
-    public void setKeterangan(string keterangan) {
+    public void setKeterangan(String keterangan) {
         this.keterangan = keterangan;
     }
 
 }
-

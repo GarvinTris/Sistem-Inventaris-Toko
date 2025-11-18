@@ -1,12 +1,12 @@
 public class User {
-     private int idUser;             // INT(11) PK
-    private String nama;            // VARCHAR(100)
-    private String username;        // VARCHAR(50)
-    private String email;           // VARCHAR(100)
-    private String noTelepon;       // VARCHAR(20)
-    private String alamat;          // VARCHAR(100)
+    private int idUser; // INT(11) PK
+    private String nama; // VARCHAR(100)
+    private String username; // VARCHAR(50)
+    private String email; // VARCHAR(100)
+    private String noTelepon; // VARCHAR(20)
+    private String alamat; // VARCHAR(100)
 
-   public User(int idUser, String nama, String username, String email, String noTelepon, String alamat) {
+    public User(int idUser, String nama, String username, String email, String noTelepon, String alamat) {
         this.idUser = idUser;
         this.nama = nama;
         this.username = username;
@@ -15,7 +15,6 @@ public class User {
         this.alamat = alamat;
     }
 
-    
     public int getIdUser() {
         return idUser;
     }
@@ -64,7 +63,7 @@ public class User {
         this.alamat = alamat;
     }
 
-     public void tampilkanInfo() {
+    public void tampilkanInfo() {
         System.out.println("=== DATA USER ===");
         System.out.println("ID User    : " + idUser);
         System.out.println("Nama       : " + nama);

@@ -12,7 +12,7 @@ public class Barang_Masuk_Keluar {
     String Ket_Keluar;
     LocalDate tanggal_keluar;
 
-    public Barang_Masuk(int id_barang_masuk, Master id_master, Barang id_barang, int id_Kelompok, String serial,
+    public Barang_Masuk_Keluar(int id_barang_masuk, Master id_master, Barang id_barang, int id_Kelompok, String serial,
             String kondisi, String keterangan, LocalDate tanggal_masuk, String ket_Keluar, LocalDate tanggal_keluar) {
         this.id_barang_masuk = id_barang_masuk;
         this.id_master = id_master;
@@ -106,6 +106,4 @@ public class Barang_Masuk_Keluar {
         this.tanggal_keluar = tanggal_keluar;
     }
 
-    
-    
 }

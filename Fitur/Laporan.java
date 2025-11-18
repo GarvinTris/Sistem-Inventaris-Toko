@@ -1,14 +1,13 @@
 public class Laporan {
-   
-    private int idLaporan;       // INT(11)
-    private User idUser;          // INT(11) FK -> User
-    private String namaLaporan;  // VARCHAR(128)
-    private int awalLaporan;     // INT(11)
-    private int akhirLaporan;    // INT(11)
-    private int dateCreated;     // INT(11)
 
-   
-    public Laporan(int idLaporan, int idUser, String namaLaporan, int awalLaporan, int akhirLaporan, int dateCreated) {
+    private int idLaporan; // INT(11)
+    private User idUser; // INT(11) FK -> User
+    private String namaLaporan; // VARCHAR(128)
+    private int awalLaporan; // INT(11)
+    private int akhirLaporan; // INT(11)
+    private int dateCreated; // INT(11)
+
+    public Laporan(int idLaporan, User idUser, String namaLaporan, int awalLaporan, int akhirLaporan, int dateCreated) {
         this.idLaporan = idLaporan;
         this.idUser = idUser;
         this.namaLaporan = namaLaporan;
@@ -17,7 +16,6 @@ public class Laporan {
         this.dateCreated = dateCreated;
     }
 
-   
     public int getIdLaporan() {
         return idLaporan;
     }
@@ -26,11 +24,11 @@ public class Laporan {
         this.idLaporan = idLaporan;
     }
 
-    public int getIdUser() {
+    public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(User idUser) {
         this.idUser = idUser;
     }
 
@@ -66,7 +64,6 @@ public class Laporan {
         this.dateCreated = dateCreated;
     }
 
-   
     public void tampilkanLaporan(User user) {
         System.out.println("=== LAPORAN ===");
         System.out.println("ID Laporan   : " + idLaporan);

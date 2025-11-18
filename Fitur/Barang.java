@@ -12,7 +12,7 @@ public class Barang {
     LocalDate created_at;
 
     public Barang(int id_barang, Satuan id_satuan, int kode_barang, String nama_barang, int stock, float harga_barang,
-            int aset_tetap, string keterangan, LocalDate created_at) {
+            int aset_tetap, String keterangan, LocalDate created_at) {
         this.id_barang = id_barang;
         this.id_satuan = id_satuan;
         this.kode_barang = kode_barang;
@@ -80,11 +80,11 @@ public class Barang {
         this.aset_tetap = aset_tetap;
     }
 
-    public string getKeterangan() {
+    public String getKeterangan() {
         return keterangan;
     }
 
-    public void setKeterangan(string keterangan) {
+    public void setKeterangan(String keterangan) {
         this.keterangan = keterangan;
     }
 

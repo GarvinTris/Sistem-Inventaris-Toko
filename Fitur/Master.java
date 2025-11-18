@@ -1,15 +1,14 @@
 public class Master {
-  
-    private int idMaster;       // INT(11)
-    private User idUser;         // INT(11) FK -> User
-    private int noMaster;       // INT(11)
-    private String file;        // VARCHAR(50)
-    private int status;         // INT(11)
-    private int tanggalInput;   // INT(11)
-    private int dateCreated;    // INT(11)
 
-  
-    public Master(int idMaster, int idUser, int noMaster, String file, int status, int tanggalInput, int dateCreated) {
+    private int idMaster; // INT(11)
+    private User idUser; // INT(11) FK -> User
+    private int noMaster; // INT(11)
+    private String file; // VARCHAR(50)
+    private int status; // INT(11)
+    private int tanggalInput; // INT(11)
+    private int dateCreated; // INT(11)
+
+    public Master(int idMaster, User idUser, int noMaster, String file, int status, int tanggalInput, int dateCreated) {
         this.idMaster = idMaster;
         this.idUser = idUser;
         this.noMaster = noMaster;
@@ -19,7 +18,6 @@ public class Master {
         this.dateCreated = dateCreated;
     }
 
-   
     public int getIdMaster() {
         return idMaster;
     }
@@ -28,11 +26,11 @@ public class Master {
         this.idMaster = idMaster;
     }
 
-    public int getIdUser() {
+    public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(User idUser) {
         this.idUser = idUser;
     }
 
@@ -76,7 +74,6 @@ public class Master {
         this.dateCreated = dateCreated;
     }
 
-   
     public void tampilkanMaster(User user) {
         System.out.println("=== MASTER DATA ===");
         System.out.println("ID Master     : " + idMaster);
