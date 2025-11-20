@@ -1,10 +1,10 @@
 public class User {
-    private int idUser; // INT(11) PK
-    private int roleUser; // INT(11)
-    private String namaUser; // VARCHAR(30)
-    private String username; // VARCHAR(30)
-    private String jabatan; // VARCHAR(30)
-    private String password; // VARCHAR(30)
+    private int idUser;
+    private int roleUser; 
+    private String namaUser; 
+    private String username; 
+    private String jabatan; 
+    private String password; 
 
     public User(int idUser, int roleUser, String namaUser, String username, String jabatan, String password) {
         this.idUser = idUser;
@@ -15,7 +15,7 @@ public class User {
         this.password = password;
     }
 
-    // Getter & Setter
+    
     public int getIdUser() {
         return idUser;
     }
