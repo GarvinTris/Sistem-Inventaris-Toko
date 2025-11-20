@@ -1,12 +1,16 @@
 public class Satuan {
     private int Id_Satuan;
-    private int Nama_Satuan;
+    private String Nama_Satuan;
     private String Keterangan;
-  
+
+    public static final String[] ListSatuan = {
+            "Pcs", "Box", "Kg", "Liter", "Meter", "Pack", "Roll", "Set"
+    };
+
     public Satuan() {
     }
 
-    public Satuan(int Id_Satuan, int Nama_Satuan, String Keterangan) {
+    public Satuan(int Id_Satuan, String Nama_Satuan, String Keterangan) {
         this.Id_Satuan = Id_Satuan;
         this.Nama_Satuan = Nama_Satuan;
         this.Keterangan = Keterangan;
@@ -20,11 +24,11 @@ public class Satuan {
         this.Id_Satuan = Id_Satuan;
     }
 
-    public int getNama_Satuan() {
+    public String getNama_Satuan() {
         return Nama_Satuan;
     }
 
-    public void setNama_Satuan(int Nama_Satuan) {
+    public void setNama_Satuan(String Nama_Satuan) {
         this.Nama_Satuan = Nama_Satuan;
     }
 
@@ -34,5 +38,23 @@ public class Satuan {
 
     public void setKeterangan(String Keterangan) {
         this.Keterangan = Keterangan;
+    }
+
+    public static boolean isValidSatuan(String input) {
+        for (String satuan : ListSatuan) {
+            if (satuan.equalsIgnoreCase(input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void ListSatuan() {
+        int i = 0;
+        System.out.println("Daftar Satuan Unit:");
+        for (String satuan : ListSatuan) {
+            i++;
+            System.out.println(" " + i + ". " + satuan);
+        }
     }
 }
