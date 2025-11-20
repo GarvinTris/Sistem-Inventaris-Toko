@@ -1,20 +1,21 @@
 public class User {
     private int idUser; // INT(11) PK
-    private String nama; // VARCHAR(100)
-    private String username; // VARCHAR(50)
-    private String email; // VARCHAR(100)
-    private String noTelepon; // VARCHAR(20)
-    private String alamat; // VARCHAR(100)
+    private int roleUser; // INT(11)
+    private String namaUser; // VARCHAR(30)
+    private String username; // VARCHAR(30)
+    private String jabatan; // VARCHAR(30)
+    private String password; // VARCHAR(30)
 
-    public User(int idUser, String nama, String username, String email, String noTelepon, String alamat) {
+    public User(int idUser, int roleUser, String namaUser, String username, String jabatan, String password) {
         this.idUser = idUser;
-        this.nama = nama;
+        this.roleUser = roleUser;
+        this.namaUser = namaUser;
         this.username = username;
-        this.email = email;
-        this.noTelepon = noTelepon;
-        this.alamat = alamat;
+        this.jabatan = jabatan;
+        this.password = password;
     }
 
+    // Getter & Setter
     public int getIdUser() {
         return idUser;
     }
@@ -23,12 +24,20 @@ public class User {
         this.idUser = idUser;
     }
 
-    public String getNama() {
-        return nama;
+    public int getRoleUser() {
+        return roleUser;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setRoleUser(int roleUser) {
+        this.roleUser = roleUser;
+    }
+
+    public String getNamaUser() {
+        return namaUser;
+    }
+
+    public void setNamaUser(String namaUser) {
+        this.namaUser = namaUser;
     }
 
     public String getUsername() {
@@ -39,37 +48,29 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public String getJabatan() {
+        return jabatan;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setJabatan(String jabatan) {
+        this.jabatan = jabatan;
     }
 
-    public String getNoTelepon() {
-        return noTelepon;
+    public String getPassword() {
+        return password;
     }
 
-    public void setNoTelepon(String noTelepon) {
-        this.noTelepon = noTelepon;
-    }
-
-    public String getAlamat() {
-        return alamat;
-    }
-
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void tampilkanInfo() {
         System.out.println("=== DATA USER ===");
-        System.out.println("ID User    : " + idUser);
-        System.out.println("Nama       : " + nama);
-        System.out.println("Username   : " + username);
-        System.out.println("Email      : " + email);
-        System.out.println("No Telepon : " + noTelepon);
-        System.out.println("Alamat     : " + alamat);
+        System.out.println("ID User   : " + idUser);
+        System.out.println("Role User : " + roleUser);
+        System.out.println("Nama User : " + namaUser);
+        System.out.println("Username  : " + username);
+        System.out.println("Jabatan   : " + jabatan);
+        System.out.println("Password  : " + password);
     }
 }
