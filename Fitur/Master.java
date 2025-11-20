@@ -74,14 +74,4 @@ public class Master {
         this.dateCreated = dateCreated;
     }
 
-    public void tampilkanMaster(User user) {
-        System.out.println("=== MASTER DATA ===");
-        System.out.println("ID Master     : " + idMaster);
-        System.out.println("No Master     : " + noMaster);
-        System.out.println("File          : " + file);
-        System.out.println("Status        : " + status);
-        System.out.println("Tanggal Input : " + tanggalInput);
-        System.out.println("Date Created  : " + dateCreated);
-        System.out.println("Dibuat oleh   : " + user.getNama());
-    }
 }

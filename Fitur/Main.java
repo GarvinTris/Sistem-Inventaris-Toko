@@ -5,8 +5,12 @@ import java.time.LocalDate;
 public class Main {
 
     static ArrayList<Barang> daftarBarang = new ArrayList<>();
+    static ArrayList<User> daftarUser = new ArrayList<>();
+    static ArrayList<Barang_Masuk_Keluar> daftarBarangMasukKeluar = new ArrayList<>();
+    static ArrayList<Master> daftarMaster = new ArrayList<>();
 
     public int nextId = 1;
+    public int nextIdMst = 1;
     public int nextIdmsk = 1;
     public int nextIdUser = 1;
     public int kodeDasar = 1000;
@@ -86,12 +90,18 @@ public class Main {
                     break;
 
                 case 7:
-                    System.out.println("Fitur History belum tersedia.");
+                    System.out.println("Searching Barang");
                     break;
 
                 case 8:
-                    System.out.println("Terima kasih telah menggunakan StockOne!");
+                    System.out.println("laporan Aset");
                     return; // keluar dari program
+                case 9:
+                    System.out.println("Fitur History belum tersedia.");
+                    break;
+                case 10:
+                    System.out.println("Fitur Stock Opname belum tersedia.");
+                    break;
                 case 11:
                     ManajemenUser(sc);
                     break;
@@ -285,15 +295,33 @@ public class Main {
     }
 
     public void BarangMasuk(Scanner sc) {
+        if (daftarMaster.isEmpty() || daftarBarang.isEmpty()) {
+            System.out.println("Belum ada data master atau barang. Silahkan tambahkan terlebih dahulu.");
+            return;
+        }
+
         System.out.println("================ Barang Masuk ================");
         System.out.println("Masukan ID Master: ");
         int id_master = sc.nextInt();
 
+        Master master = getMasterById(id_master);
+        if (master == null) {
+            System.out.println("ID Master tidak ditemukan.");
+            return;
+        }
+
         System.out.println("Masukan ID Barang: ");
         int id_barang = sc.nextInt();
 
+        Barang barang = getBarangById(id_barang);
+        if (barang == null) {
+            System.out.println("ID Barang tidak ditemukan.");
+            return;
+        }
+
         System.out.println("Masukan ID Kelompok: ");
         int id_kelompok = sc.nextInt();
+        sc.nextLine();
 
         System.out.println("Masukan Serial: ");
         String serial = sc.nextLine();
@@ -304,9 +332,10 @@ public class Main {
         System.out.println("Masukan Keterangan: ");
         String keterangan = sc.nextLine();
 
-        Barang_Masuk_Keluar bm = new Barang_Masuk_Keluar(nextIdmsk, id_master, id_barang, id_kelompok, serial, kondisi,
+        Barang_Masuk_Keluar bm = new Barang_Masuk_Keluar(nextIdmsk, master, barang, id_kelompok, serial, kondisi,
                 keterangan, LocalDate.now(), null, null);
         nextIdmsk++;
+        daftarBarangMasukKeluar.add(bm);
     }
 
     public void BarangKeluar(Scanner sc) {
@@ -314,24 +343,118 @@ public class Main {
     }
 
     public void ManajemenUser(Scanner sc) {
+
         System.out.println("=========== Manajemen User ===========");
-        System.out.println("");
+        System.out.println("1. Tambah User");
+        System.out.println("2. Hapus User");
+        System.out.println("3. Tampilkan User");
 
-        System.out.println("Silahkan masukkan nama user baru: ");
-        String nama = sc.nextLine();
+        int pilih = sc.nextInt();
+        sc.nextLine();
 
-        System.out.println("Silahkan masukkan Email: ");
-        String email = sc.nextLine();
-
-        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-
-        if (email.matches(regex)) {
-            System.out.println("Email valid.");
+        if (pilih == 1) {
+            tambahUser(sc);
+        } else if (pilih == 2) {
+            hapusUser(sc);
+        } else if (pilih == 3) {
+            tampilUser();
         } else {
-            System.out.println("Email TIDAK valid (huruf kecil di nama TIDAK boleh).");
+            System.out.println("Silahkan masukkan pilihan yang valid.");
         }
 
     }
+
+    public void tampilUser() {
+        System.out.println("\n========== DATA USER ==========");
+
+        if (daftarUser.isEmpty()) {
+            System.out.println("Belum ada user.");
+            return;
+        }
+
+        System.out.printf("%-5s %-15s %-15s %-10s %-15s%n",
+                "ID", "Nama", "Username", "Role", "Jabatan");
+
+        for (User u : daftarUser) {
+            System.out.printf("%-5d %-15s %-15s %-10d %-15s%n",
+                    u.getIdUser(),
+                    u.getNamaUser(),
+                    u.getUsername(),
+                    u.getRoleUser(),
+                    u.getJabatan());
+        }
+    }
+
+    public void tambahUser(Scanner sc) {
+        System.out.println("Silahkan masukkan nama: ");
+        String nama = sc.nextLine();
+
+        System.out.println("Silahkan masukkan username: ");
+        String username = sc.nextLine();
+
+        System.out.println("Daftar pengelola sebagai: ");
+        System.out.println("101 - admin ");
+        System.out.println("102 - staff ");
+        System.out.println("103 - supervisor ");
+        System.out.println("201 - manajer ");
+        int role = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Silahkan masukkan jabatan: ");
+        String jabatan = sc.nextLine();
+
+        System.out.println("Silahkan masukkan password: ");
+        String password = sc.nextLine();
+
+        User user = new User(nextIdUser, role, nama, username, jabatan, password);
+        nextIdUser++;
+
+        Master master = new Master(nextIdMst, user, 101, "", 1, LocalDate.now().getDayOfYear(),
+                LocalDate.now().getDayOfYear());
+        nextIdMst++;
+
+        daftarUser.add(user);
+        daftarMaster.add(master);
+    }
+
+    public void hapusUser(Scanner sc) {
+
+        tampilUser();
+
+        System.out.print("\nMasukkan ID User yang ingin dihapus: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        for (User u : daftarUser) {
+            if (u.getIdUser() == id) {
+                daftarUser.remove(u);
+                System.out.println("User berhasil dihapus.");
+                return;
+            }
+        }
+
+        System.out.println("User dengan ID tersebut tidak ditemukan.");
+
+    }
+
+    public Master getMasterById(int id) {
+        for (Master m : daftarMaster) {
+            if (m.getIdMaster() == id) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public Barang getBarangById(int id) {
+        for (Barang b : daftarBarang) {
+            if (b.getId_barang() == id) {
+                return b;
+            }
+        }
+        return null;
+    }
+
 }
 
 class DataTidakValid extends Exception {

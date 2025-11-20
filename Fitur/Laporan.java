@@ -63,14 +63,4 @@ public class Laporan {
     public void setDateCreated(int dateCreated) {
         this.dateCreated = dateCreated;
     }
-
-    public void tampilkanLaporan(User user) {
-        System.out.println("=== LAPORAN ===");
-        System.out.println("ID Laporan   : " + idLaporan);
-        System.out.println("Nama Laporan : " + namaLaporan);
-        System.out.println("Awal         : " + awalLaporan);
-        System.out.println("Akhir        : " + akhirLaporan);
-        System.out.println("Tanggal Buat : " + dateCreated);
-        System.out.println("Dibuat oleh  : " + user.getNama());
-    }
 }
