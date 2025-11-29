@@ -2,7 +2,6 @@ import java.time.LocalDate;
 
 public class Barang_Masuk_Keluar {
     int id_barang_masuk;
-    Master id_master;
     Barang id_barang;
     int id_Kelompok;
     String serial;
@@ -12,10 +11,10 @@ public class Barang_Masuk_Keluar {
     String Ket_Keluar;
     LocalDate tanggal_keluar;
 
-    public Barang_Masuk_Keluar(int id_barang_masuk, Master id_master, Barang id_barang, int id_Kelompok, String serial,
+    public Barang_Masuk_Keluar(int id_barang_masuk, Barang id_barang, int id_Kelompok, String serial,
             String kondisi, String keterangan, LocalDate tanggal_masuk, String ket_Keluar, LocalDate tanggal_keluar) {
         this.id_barang_masuk = id_barang_masuk;
-        this.id_master = id_master;
+
         this.id_barang = id_barang;
         this.id_Kelompok = id_Kelompok;
         this.serial = serial;
@@ -32,14 +31,6 @@ public class Barang_Masuk_Keluar {
 
     public void setId_barang_masuk(int id_barang_masuk) {
         this.id_barang_masuk = id_barang_masuk;
-    }
-
-    public Master getId_master() {
-        return id_master;
-    }
-
-    public void setId_master(Master id_master) {
-        this.id_master = id_master;
     }
 
     public Barang getId_barang() {

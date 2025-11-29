@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Barang {
+public class Barang extends Data {
     int id_barang;
     Satuan id_satuan;
     int kode_barang;
@@ -96,18 +96,18 @@ public class Barang {
         this.created_at = created_at;
     }
 
+    @Override
     public String getSerial() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getSerial'");
     }
 
+    @Override
     public String getTanggal_masuk() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getTanggal_masuk'");
     }
 
+    @Override
     public String getKondisi() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getKondisi'");
     }
 

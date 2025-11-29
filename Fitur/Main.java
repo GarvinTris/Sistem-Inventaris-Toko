@@ -5,27 +5,22 @@ import java.time.LocalDate;
 public class Main {
 
     static ArrayList<Barang> daftarBarang = new ArrayList<>();
-    static ArrayList<User> daftarUser = new ArrayList<>();
     static ArrayList<Barang_Masuk_Keluar> daftarBarangMasukKeluar = new ArrayList<>();
-    static ArrayList<Master> daftarMaster = new ArrayList<>();
 
     public int nextId = 1;
-    public int nextIdMst = 1;
     public int nextIdmsk = 1;
-    public int nextIdUser = 1;
     public int kodeDasar = 1000;
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         Main app = new Main();
         app.Menu(sc);
-
     }
 
+    // ============================================================
+    // MENU UTAMA
+    // ============================================================
     public void Menu(Scanner sc) {
-
-        int pilih = 0;
 
         while (true) {
             System.out.println("=========== STOCKONE ============");
@@ -39,105 +34,91 @@ public class Main {
             System.out.println("6. Barang Keluar");
             System.out.println("7. Searching Barang");
             System.out.println("8. Laporan Aset");
-            System.out.println("9. History Aktivitas");
-            System.out.println("10. Perhitungan Fisik / Stock Opname");
-            System.out.println("11. Manajemen User");
-            System.out.println("12. Keluar");
+            System.out.println("9. Keluar");
             System.out.println("=================================");
 
-            try {
-                pilih = sc.nextInt();
-                sc.nextLine(); // buang newline
-            } catch (Exception e) {
-                System.out.println("Input tidak valid. Masukkan angka!");
-                sc.nextLine();
-                continue;
-            }
+            Integer pilihan = sc.nextInt();
+            sc.nextLine();
 
-            switch (pilih) {
-                case 1:
-                    tambahBarang(sc);
-                    break;
-
-                case 2:
+            switch (pilihan) {
+                case 1 -> tambahBarang(sc);
+                case 2 -> {
                     if (daftarBarang.isEmpty()) {
                         System.out.println("Belum ada data barang untuk diedit.");
-                        break;
-                    } else {
+                    } else
                         editBarang(sc);
-                    }
-                    break;
-
-                case 3:
+                }
+                case 3 -> {
                     if (daftarBarang.isEmpty()) {
                         System.out.println("Belum ada data barang untuk dihapus.");
-                        break;
-                    } else {
+                    } else
                         HapusBarang(sc);
-                    }
-                    break;
-
-                case 4:
-                    tampilkanInfo();
-                    break;
-
-                case 5:
-                    BarangMasuk(sc);
-                    break;
-
-                case 6:
-                    BarangKeluar(sc);
-                    break;
-
-                case 7:
-                    System.out.println("Searching Barang");
-                    break;
-
-                case 8:
-                    System.out.println("laporan Aset");
-                    return; // keluar dari program
-                case 9:
-                    System.out.println("Fitur History belum tersedia.");
-                    break;
-                case 10:
-                    System.out.println("Fitur Stock Opname belum tersedia.");
-                    break;
-                case 11:
-                    ManajemenUser(sc);
-                    break;
-                default:
-                    System.out.println("Silahkan masukkan pilihan yang valid.");
-                    break;
+                }
+                case 4 -> tampilkanInfo();
+                case 5 -> BarangMasuk(sc);
+                case 6 -> BarangKeluar(sc);
+                case 7 -> SearchingBarang(sc);
+                case 8 -> Laporan(sc);
+                case 9 -> {
+                    System.out.println("Keluar program...");
+                    return;
+                }
+                default -> System.out.println("Silahkan masukkan pilihan yang valid.");
             }
         }
     }
 
+    // ============================================================
+    // HELPER INPUT
+    // ============================================================
+    public String inputString(Scanner sc, String prompt) {
+        System.out.print(prompt + " (ketik 'b' untuk kembali): ");
+        String input = sc.nextLine().trim();
+        if (input.equalsIgnoreCase("b"))
+            return null;
+        return input;
+    }
+
+    public Integer inputInt(Scanner sc, String prompt) {
+        String input = inputString(sc, prompt);
+        if (input == null)
+            return null;
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Input tidak valid! Masukkan angka.");
+            return inputInt(sc, prompt);
+        }
+    }
+
+    // ============================================================
+    // TAMBAH BARANG / ASET
+    // ============================================================
     public void tambahBarang(Scanner sc) {
-
         System.out.println("\n========== Tambah Aset Barang ==========");
-        System.out.print("Nama Barang: ");
-        String nama = sc.nextLine();
+        String nama = inputString(sc, "Nama Barang");
+        if (nama == null)
+            return;
 
-        System.out.print("Harga: ");
-        int harga = sc.nextInt();
-        sc.nextLine();
+        Integer harga = inputInt(sc, "Harga");
+        if (harga == null)
+            return;
 
-        System.out.print("Jumlah Masuk: ");
-        int jumlah = sc.nextInt();
-        sc.nextLine();
+        Integer jumlah = inputInt(sc, "Jumlah Masuk");
+        if (jumlah == null)
+            return;
 
-        System.out.print("Keterangan: ");
-        String keterangan = sc.nextLine();
+        String keterangan = inputString(sc, "Keterangan");
+        if (keterangan == null)
+            return;
 
         Satuan.ListSatuan();
         System.out.println("Ketik '?' untuk mengetahui fungsi satuan unit");
-        System.out.print("Isi Satuan unit : ");
-
         String unit = "";
-
         while (true) {
-            unit = sc.nextLine().trim();
-
+            unit = inputString(sc, "Isi Satuan unit");
+            if (unit == null)
+                return;
             if (unit.equals("?")) {
                 System.out.println("pcs : barang per buah");
                 System.out.println("box : barang dalam kotak");
@@ -147,128 +128,112 @@ public class Main {
                 System.out.println("pack : beberapa pcs dalam bundel");
                 System.out.println("roll : berbentuk gulungan");
                 System.out.println("set : terdiri dari beberapa bagian");
-                System.out.print("Masukkan satuan ulang: ");
                 continue;
             }
-
-            if (Satuan.isValidSatuan(unit)) {
+            if (Satuan.isValidSatuan(unit))
                 break;
-            }
             System.out.println("Satuan tidak valid!");
             Satuan.ListSatuan();
-            System.out.print("Masukkan ulang: ");
         }
 
         Satuan satuan = new Satuan(nextId, unit, null);
-
         int kode = kodeDasar + nextId;
 
-        Barang b = new Barang(
-                nextId,
-                satuan,
-                kode,
-                nama,
-                jumlah,
-                harga,
-                jumlah,
-                keterangan,
-                LocalDate.now());
-
+        Barang b = new Barang(nextId, satuan, kode, nama, jumlah, harga, jumlah, keterangan, LocalDate.now());
         daftarBarang.add(b);
 
-        System.out.println("\nAset Barang berhasil ditambahkan dengan ID");
+        System.out.println("\nAset Barang berhasil ditambahkan dengan ID " + nextId);
         nextId++;
     }
 
+    // ============================================================
+    // EDIT BARANG
+    // ============================================================
     public void editBarang(Scanner sc) {
         System.out.println("=========== Edit Aset Barang ===========");
         tampilkanInfo();
-        System.out.print("Masukkan ID Barang yang ingin diedit: ");
-        int id_edit = sc.nextInt();
-        sc.nextLine();
+        Integer id_edit = inputInt(sc, "Masukkan ID Barang yang ingin diedit");
+        if (id_edit == null)
+            return;
 
-        for (Barang bmk : daftarBarang) {
-            if (bmk.getId_barang() == id_edit) {
-                while (true) {
-                    System.out.println("\nEdit pada : ");
-                    System.out.println("1. Nama Barang");
-                    System.out.println("2. Harga");
-                    System.out.println("3. Jumlah Stok");
-                    System.out.println("4. Keterangan");
-                    System.out.println("5. satuan");
+        Barang bmk = getBarangById(id_edit);
+        if (bmk == null) {
+            System.out.println("ID Barang tidak ditemukan.");
+            return;
+        }
 
-                    int edit_data = sc.nextInt();
-                    sc.nextLine();
-                    switch (edit_data) {
-                        case 1:
-                            System.out.print("Nama Barang (" + bmk.getNama_barang() + "): ");
-                            String nama_baru = sc.nextLine();
-                            if (!nama_baru.isEmpty()) {
-                                bmk.setNama_barang(nama_baru);
-                            }
-                            break;
-                        case 2:
-                            System.out.print("Harga (" + bmk.getHarga_barang() + "): ");
-                            String harga_input = sc.nextLine();
-                            if (!harga_input.isEmpty()) {
-                                int harga_baru = Integer.parseInt(harga_input);
-                                bmk.setHarga_barang(harga_baru);
-                            }
-                            break;
-                        case 3:
-                            System.out.print("Jumlah Stok (" + bmk.getStock() + "): ");
-                            String stok_input = sc.nextLine();
-                            if (!stok_input.isEmpty()) {
-                                int stok_baru = Integer.parseInt(stok_input);
-                                bmk.setStock(stok_baru);
-                            }
-                            break;
-                        case 4:
-                            System.out.print("Keterangan (" + bmk.getKeterangan() + "): ");
-                            String keterangan_baru = sc.nextLine();
-                            if (!keterangan_baru.isEmpty()) {
-                                bmk.setKeterangan(keterangan_baru);
-                            }
-                            break;
-                        case 5:
-                            Satuan.ListSatuan();
-                            System.out.println("Satuan (" + bmk.getId_satuan().getNama_Satuan() + "): ");
-                            String satuan = sc.nextLine().trim();
-                            if (!satuan.isEmpty()) {
-                                bmk.id_satuan.setNama_Satuan(satuan);
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+        while (true) {
+            System.out.println("\nEdit pada : ");
+            System.out.println("1. Nama Barang");
+            System.out.println("2. Harga");
+            System.out.println("3. Jumlah Stok");
+            System.out.println("4. Keterangan");
+            System.out.println("5. Satuan");
+            System.out.println("6. Kembali");
 
-                    System.out.println("Aset Barang dengan ID " + id_edit + " berhasil diupdate.");
-                    return;
+            Integer edit_data = inputInt(sc, "Pilih data yang ingin diedit");
+            if (edit_data == null || edit_data == 6)
+                return;
+
+            switch (edit_data) {
+                case 1 -> {
+                    String nama_baru = inputString(sc, "Nama Barang (" + bmk.getNama_barang() + ")");
+                    if (nama_baru != null)
+                        bmk.setNama_barang(nama_baru);
                 }
+                case 2 -> {
+                    Integer harga_baru = inputInt(sc, "Harga (" + bmk.getHarga_barang() + ")");
+                    if (harga_baru != null)
+                        bmk.setHarga_barang(harga_baru);
+                }
+                case 3 -> {
+                    Integer stok_baru = inputInt(sc, "Jumlah Stok (" + bmk.getStock() + ")");
+                    if (stok_baru != null)
+                        bmk.setStock(stok_baru);
+                }
+                case 4 -> {
+                    String ket_baru = inputString(sc, "Keterangan (" + bmk.getKeterangan() + ")");
+                    if (ket_baru != null)
+                        bmk.setKeterangan(ket_baru);
+                }
+                case 5 -> {
+                    Satuan.ListSatuan();
+                    String satuan = inputString(sc, "Satuan (" + bmk.getId_satuan().getNama_Satuan() + ")");
+                    if (satuan != null)
+                        bmk.id_satuan.setNama_Satuan(satuan);
+                }
+                default -> System.out.println("Pilihan tidak valid.");
             }
+
+            System.out.println("Aset Barang dengan ID " + id_edit + " berhasil diupdate.");
         }
     }
 
+    // ============================================================
+    // HAPUS BARANG
+    // ============================================================
     public void HapusBarang(Scanner sc) {
         System.out.println("=========== Hapus Aset Barang ===========");
         tampilkanInfo();
-        System.out.print("Masukkan ID Barang yang ingin dihapus: ");
-        int id_hapus = sc.nextInt();
 
-        for (Barang bmk : daftarBarang) {
-            if (bmk.getId_barang() == id_hapus) {
-                daftarBarang.remove(bmk);
-                System.out.println("Aset Barang dengan ID " + id_hapus + " berhasil dihapus.");
-                return;
-            }
+        Integer id_hapus = inputInt(sc, "Masukkan ID Barang yang ingin dihapus");
+        if (id_hapus == null)
+            return;
+
+        Barang bmk = getBarangById(id_hapus);
+        if (bmk != null) {
+            daftarBarang.remove(bmk);
+            System.out.println("Aset Barang dengan ID " + id_hapus + " berhasil dihapus.");
+        } else {
+            System.out.println("ID Barang tidak ditemukan.");
         }
-        Menu(sc);
     }
 
+    // ============================================================
+    // TAMPILKAN INFO
+    // ============================================================
     public void tampilkanInfo() {
-
         System.out.println("\n========== DATA ASET BARANG ==========");
-
         if (daftarBarang.isEmpty()) {
             System.out.println("Belum ada data barang.");
             return;
@@ -276,7 +241,6 @@ public class Main {
 
         System.out.printf("%-10s %-12s %-10s %-20s %-8s %-10s %-12s %-30s %-15s%n",
                 "ID", "Satuan", "Kode", "Nama", "Stok", "Harga", "AsetTtp", "Keterangan", "Tanggal");
-
         System.out.println(
                 "---------------------------------------------------------------------------------------------");
 
@@ -294,24 +258,19 @@ public class Main {
         }
     }
 
+    // ============================================================
+    // BARANG MASUK
+    // ============================================================
     public void BarangMasuk(Scanner sc) {
-        if (daftarMaster.isEmpty() || daftarBarang.isEmpty()) {
-            System.out.println("Belum ada data master atau barang. Silahkan tambahkan terlebih dahulu.");
+        if (daftarBarang.isEmpty()) {
+            System.out.println("Belum ada data barang. Silahkan tambahkan terlebih dahulu.");
             return;
         }
 
         System.out.println("================ Barang Masuk ================");
-        System.out.println("Masukan ID Master: ");
-        int id_master = sc.nextInt();
-
-        Master master = getMasterById(id_master);
-        if (master == null) {
-            System.out.println("ID Master tidak ditemukan.");
+        Integer id_barang = inputInt(sc, "Masukan ID Barang");
+        if (id_barang == null)
             return;
-        }
-
-        System.out.println("Masukan ID Barang: ");
-        int id_barang = sc.nextInt();
 
         Barang barang = getBarangById(id_barang);
         if (barang == null) {
@@ -319,144 +278,144 @@ public class Main {
             return;
         }
 
-        System.out.println("Masukan ID Kelompok: ");
-        int id_kelompok = sc.nextInt();
-        sc.nextLine();
+        String serial = inputString(sc, "Masukan Serial");
+        if (serial == null)
+            return;
 
-        System.out.println("Masukan Serial: ");
-        String serial = sc.nextLine();
-
-        System.out.println("Masukan Kondisi: ");
-        String kondisi = sc.nextLine();
-
-        System.out.println("Masukan Keterangan: ");
-        String keterangan = sc.nextLine();
-
-        Barang_Masuk_Keluar bm = new Barang_Masuk_Keluar(nextIdmsk, master, barang, id_kelompok, serial, kondisi,
-                keterangan, LocalDate.now(), null, null);
-        nextIdmsk++;
-        daftarBarangMasukKeluar.add(bm);
-    }
-
-    public void BarangKeluar(Scanner sc) {
-
-    }
-
-    public void ManajemenUser(Scanner sc) {
-
-        System.out.println("=========== Manajemen User ===========");
-        System.out.println("1. Tambah User");
-        System.out.println("2. Hapus User");
-        System.out.println("3. Tampilkan User");
-
-        int pilih = sc.nextInt();
-        sc.nextLine();
-
-        if (pilih == 1) {
-            tambahUser(sc);
-        } else if (pilih == 2) {
-            hapusUser(sc);
-        } else if (pilih == 3) {
-            tampilUser();
+        String kondisi = inputString(sc, "Masukan Kondisi");
+        if (kondisi == null)
+            return;
+        if (kondisi.equals("Baik")) {
+            kondisi = "Baik";
+        } else if (kondisi.equals("Buruk")) {
+            System.out.println("Jelaskan penyebab tersebut.");
+            kondisi = inputString(sc, "Contoh Kerusakan (Bengkok, terkuplas, Patah):");
         } else {
-            System.out.println("Silahkan masukkan pilihan yang valid.");
+            System.out.println("Pilihan yang salah.");
+            BarangMasuk(sc);
         }
 
+        String keterangan = inputString(sc, "Masukan Keterangan");
+        if (keterangan == null)
+            return;
+
+        Barang_Masuk_Keluar bm = new Barang_Masuk_Keluar(nextIdmsk, null, 0, serial, kondisi, keterangan,
+                LocalDate.now(), null, null);
+
+        nextIdmsk++;
+        daftarBarangMasukKeluar.add(bm);
+        System.out.println("Barang berhasil dicatat sebagai MASUK.");
     }
 
-    public void tampilUser() {
-        System.out.println("\n========== DATA USER ==========");
-
-        if (daftarUser.isEmpty()) {
-            System.out.println("Belum ada user.");
+    // ============================================================
+    // BARANG KELUAR
+    // ============================================================
+    public void BarangKeluar(Scanner sc) {
+        if (daftarBarangMasukKeluar.isEmpty()) {
+            System.out.println("Belum ada data barang masuk.");
             return;
         }
 
-        System.out.printf("%-5s %-15s %-15s %-10s %-15s%n",
-                "ID", "Nama", "Username", "Role", "Jabatan");
+        System.out.println("=========== Barang Keluar ===========");
+        Integer id = inputInt(sc, "Masukkan ID Barang Masuk");
+        if (id == null)
+            return;
 
-        for (User u : daftarUser) {
-            System.out.printf("%-5d %-15s %-15s %-10d %-15s%n",
-                    u.getIdUser(),
-                    u.getNamaUser(),
-                    u.getUsername(),
-                    u.getRoleUser(),
-                    u.getJabatan());
-        }
-    }
-
-    public void tambahUser(Scanner sc) {
-        System.out.println("Silahkan masukkan nama: ");
-        String nama = sc.nextLine();
-
-        System.out.println("Silahkan masukkan username: ");
-        String username = sc.nextLine();
-
-        System.out.println("Daftar pengelola sebagai: ");
-        System.out.println("101 - admin ");
-        System.out.println("102 - staff ");
-        System.out.println("103 - supervisor ");
-        System.out.println("201 - manajer ");
-        int role = sc.nextInt();
-        sc.nextLine();
-
-        System.out.println("Silahkan masukkan jabatan: ");
-        String jabatan = sc.nextLine();
-
-        System.out.println("Silahkan masukkan password: ");
-        String password = sc.nextLine();
-
-        User user = new User(nextIdUser, role, nama, username, jabatan, password);
-        nextIdUser++;
-
-        Master master = new Master(nextIdMst, user, 101, "", 1, LocalDate.now().getDayOfYear(),
-                LocalDate.now().getDayOfYear());
-        nextIdMst++;
-
-        daftarUser.add(user);
-        daftarMaster.add(master);
-    }
-
-    public void hapusUser(Scanner sc) {
-
-        tampilUser();
-
-        System.out.print("\nMasukkan ID User yang ingin dihapus: ");
-        int id = sc.nextInt();
-        sc.nextLine();
-
-        for (User u : daftarUser) {
-            if (u.getIdUser() == id) {
-                daftarUser.remove(u);
-                System.out.println("User berhasil dihapus.");
-                return;
+        Barang_Masuk_Keluar data = null;
+        for (Barang_Masuk_Keluar bm : daftarBarangMasukKeluar) {
+            if (bm.getId_barang_masuk() == id) {
+                data = bm;
+                break;
             }
         }
 
-        System.out.println("User dengan ID tersebut tidak ditemukan.");
+        if (data == null) {
+            System.out.println("ID Barang Masuk tidak ditemukan.");
+            return;
+        }
+        if (data.getTanggal_keluar() != null) {
+            System.out.println("Barang ini sudah dicatat sebagai KELUAR sebelumnya!");
+            return;
+        }
 
+        String ketKeluar = inputString(sc, "Masukkan keterangan keluar");
+        if (ketKeluar == null)
+            return;
+
+        data.setKet_Keluar(ketKeluar);
+        data.setTanggal_keluar(LocalDate.now());
+        System.out.println("Barang berhasil dicatat sebagai KELUAR.");
     }
 
-    public Master getMasterById(int id) {
-        for (Master m : daftarMaster) {
-            if (m.getIdMaster() == id) {
-                return m;
+    // ============================================================
+    // SEARCHING BARANG
+    // ============================================================
+    public void SearchingBarang(Scanner sc) {
+        System.out.println("=========== Searching Barang ===========");
+        String key = inputString(sc, "Masukkan nama atau kode");
+        if (key == null)
+            return;
+
+        boolean ditemukan = false;
+        for (Barang b : daftarBarang) {
+            if (b.getNama_barang().toLowerCase().contains(key.toLowerCase()) ||
+                    String.valueOf(b.getKode_barang()).equals(key)) {
+                System.out.println("\nDitemukan:");
+                System.out.println("ID: " + b.getId_barang());
+                System.out.println("Nama: " + b.getNama_barang());
+                System.out.println("Kode: " + b.getKode_barang());
+                System.out.println("Stok: " + b.getStock());
+                System.out.println("Harga: " + b.getHarga_barang());
+                System.out.println("Satuan: " + b.getId_satuan().getNama_Satuan());
+                ditemukan = true;
             }
         }
-        return null;
+
+        if (!ditemukan)
+            System.out.println("Barang tidak ditemukan.");
     }
 
+    // ============================================================
+    // LAPORAN
+    // ============================================================
+    public void Laporan(Scanner sc) {
+        System.out.println("=========== Laporan Aset ===========");
+        if (daftarBarang.isEmpty()) {
+            System.out.println("Belum ada barang.");
+            return;
+        }
+
+        int totalBarang = 0;
+        float totalNilai = 0;
+
+        System.out.println("\nJenis Barang    Jumlah    Nilai");
+        for (Barang b : daftarBarang) {
+            float nilai = b.getStock() * b.getHarga_barang();
+            System.out.printf("%-15s %-8d Rp %, .0f%n", b.getNama_barang(), b.getStock(), nilai);
+            totalBarang += b.getStock();
+            totalNilai += nilai;
+        }
+
+        System.out.println("\nTotal Jenis Barang : " + daftarBarang.size());
+        System.out.println("Total Item Barang  : " + totalBarang);
+        System.out.println("Total Nilai Aset   : Rp " + String.format("%,.0f", totalNilai));
+    }
+
+    // ============================================================
+    // HELPER GET BY ID
+    // ============================================================
     public Barang getBarangById(int id) {
         for (Barang b : daftarBarang) {
-            if (b.getId_barang() == id) {
+            if (b.getId_barang() == id)
                 return b;
-            }
         }
         return null;
     }
-
 }
 
+// ============================================================
+// CUSTOM EXCEPTION
+// ============================================================
 class DataTidakValid extends Exception {
     public DataTidakValid(String message) {
         super(message);
