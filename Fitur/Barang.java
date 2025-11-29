@@ -10,6 +10,7 @@ public class Barang extends Data {
     int aset_tetap;
     String keterangan;
     LocalDate created_at;
+    Jenis_Barang jenis_barang;
 
     public Barang(int id_barang, Satuan id_satuan, int kode_barang, String nama_barang, int stock, float harga_barang,
             int aset_tetap, String keterangan, LocalDate created_at) {
@@ -94,6 +95,14 @@ public class Barang extends Data {
 
     public void setCreated_at(LocalDate created_at) {
         this.created_at = created_at;
+    }
+
+    public Jenis_Barang getJenisBarang() {
+        return jenis_barang;
+    }
+
+    public void setJenisBarang(Jenis_Barang jenisBarang) {
+        this.jenis_barang = jenisBarang;
     }
 
     @Override

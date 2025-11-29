@@ -1,13 +1,13 @@
 public class Jenis_Barang {
     private int Id_Jenis_Barang;
     private int Id_Kelompok_Aset;
-    private int Nama_Jenis_Barang;
+    private String Nama_Jenis_Barang;
     private String Keterangan;
 
     public Jenis_Barang() {
     }
 
-    public Jenis_Barang(int Id_Jenis_Barang, int Id_Kelompok_Aset, int Nama_Jenis_Barang, String Keterangan) {
+    public Jenis_Barang(int Id_Jenis_Barang, int Id_Kelompok_Aset, String Nama_Jenis_Barang, String Keterangan) {
         this.Id_Jenis_Barang = Id_Jenis_Barang;
         this.Id_Kelompok_Aset = Id_Kelompok_Aset;
         this.Nama_Jenis_Barang = Nama_Jenis_Barang;
@@ -30,11 +30,11 @@ public class Jenis_Barang {
         this.Id_Kelompok_Aset = Id_Kelompok_Aset;
     }
 
-    public int getNama_Jenis_Barang() {
+    public String getNama_Jenis_Barang() {
         return Nama_Jenis_Barang;
     }
 
-    public void setNama_Jenis_Barang(int Nama_Jenis_Barang) {
+    public void setNama_Jenis_Barang(String Nama_Jenis_Barang) {
         this.Nama_Jenis_Barang = Nama_Jenis_Barang;
     }
 
