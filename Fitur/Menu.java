@@ -42,21 +42,41 @@ public class Menu {
                 continue;
 
             switch (pilihan) {
-                case 1 -> tambahBarang(sc);
-                case 2 -> editBarang(sc);
-                case 3 -> HapusBarang(sc);
-                case 4 -> tampilkanInfo();
-                case 5 -> BarangMasuk(sc);
-                case 6 -> BarangKeluar(sc);
-                case 7 -> SearchingBarang(sc);
-                case 8 -> Laporan(sc);
-                case 9 -> tampilkanHistory();
-                case 10 -> {
+                case 1:
+                    tambahBarang(sc);
+                    break;
+                case 2:
+                    editBarang(sc);
+                    break;
+                case 3:
+                    HapusBarang(sc);
+                    break;
+                case 4:
+                    tampilkanInfo();
+                    break;
+                case 5:
+                    BarangMasuk(sc);
+                    break;
+                case 6:
+                    BarangKeluar(sc);
+                    break;
+                case 7:
+                    SearchingBarang(sc);
+                    break;
+                case 8:
+                    Laporan(sc);
+                    break;
+                case 9:
+                    tampilkanHistory();
+                    break;
+                case 10:
                     System.out.println("Keluar program...");
                     return;
-                }
-                default -> System.out.println("Pilihan tidak valid!");
+                default:
+                    System.out.println("Pilihan tidak valid!");
+                    break;
             }
+
         }
     }
 
@@ -205,12 +225,24 @@ public class Menu {
             System.out.println("Belum ada data barang.");
             return;
         }
+
         System.out.printf("%-5s %-10s %-20s %-20s %-10s %-10s%n",
                 "ID", "Kode", "Jenis", "Nama", "Stok", "Harga");
+
         for (Barang b : daftarBarang) {
-            System.out.printf("%-5d %-10d %-20s %-20s %-10d %-10d%n",
-                    b.getId_barang(), b.getKode_barang(), b.getJenisBarang().getNama_Jenis_Barang(),
-                    b.getNama_barang(), b.getStock(), b.getHarga_barang());
+
+            String jenis = (b.getJenisBarang() != null)
+                    ? b.getJenisBarang().getNama_Jenis_Barang()
+                    : "Tidak ada";
+
+            System.out.printf("%-5d %-10d %-20s %-20s %-10d %-10.0f%n",
+                    b.getId_barang(),
+                    b.getKode_barang(),
+                    jenis,
+                    b.getNama_barang(),
+                    b.getStock(),
+                    b.getHarga_barang());
+
         }
     }
 
