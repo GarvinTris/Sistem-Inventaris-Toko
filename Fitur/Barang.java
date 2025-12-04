@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Barang extends Data {
+public class Barang implements Interface.Inter {
     int id_barang;
     Satuan id_satuan;
     int kode_barang;
@@ -106,18 +106,18 @@ public class Barang extends Data {
     }
 
     @Override
-    public String getSerial() {
-        throw new UnsupportedOperationException("Unimplemented method 'getSerial'");
+    public int totalStock() {
+        return this.stock;
     }
 
     @Override
-    public String getTanggal_masuk() {
-        throw new UnsupportedOperationException("Unimplemented method 'getTanggal_masuk'");
+    public boolean isStock() {
+        return this.stock > 0;
     }
 
     @Override
-    public String getKondisi() {
-        throw new UnsupportedOperationException("Unimplemented method 'getKondisi'");
+    public String Stockinfo() {
+        return "Barang: " + this.nama_barang + ", Stock: " + this.stock;
     }
 
 }

@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Barang_Masuk_Keluar {
+public class Barang_Masuk_Keluar extends Data {
     int id_barang_masuk;
     Barang id_barang;
     int id_Kelompok;
@@ -49,6 +49,7 @@ public class Barang_Masuk_Keluar {
         this.id_Kelompok = id_Kelompok;
     }
 
+    @Override
     public String getSerial() {
         return serial;
     }
@@ -57,6 +58,7 @@ public class Barang_Masuk_Keluar {
         this.serial = serial;
     }
 
+    @Override
     public String getKondisi() {
         return kondisi;
     }
@@ -73,6 +75,7 @@ public class Barang_Masuk_Keluar {
         Keterangan = keterangan;
     }
 
+    @Override
     public LocalDate getTanggal_masuk() {
         return tanggal_masuk;
     }
