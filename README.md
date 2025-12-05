@@ -11,10 +11,8 @@ Selain itu, sistem ini memastikan setiap aset toko terawasi dengan baik mulai da
 
 StockOne adalah aplikasi inventaris berbasis data yang menyediakan fitur utama untuk:
 - Mencatat barang masuk dan keluar beserta tanggalnya.
-- Mengelompokkan barang berdasarkan jenis, satuan, dan kelompok aset.
-- Menyimpan data hasil perhitungan fisik dan perhitungan hasil.
-- Menghasilkan laporan otomatis yang mencatat setiap perubahan data aset, termasuk siapa (staff) yang melakukan perubahan.
-- Menyediakan dashboard monitoring untuk memudahkan admin atau pemilik toko melihat kondisi aset terkini.
+- Mengelompokkan barang berdasarkan jenis, dan satuan
+- Menghasilkan laporan otomatis yang mencatat setiap perubahan data aset.
 
 Class Diagram terdiri dari :
 - Barang menyimpan data barang seperti nama, kode, jumlah, dan satuan.
