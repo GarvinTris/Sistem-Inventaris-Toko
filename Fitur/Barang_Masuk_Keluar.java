@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Barang_Masuk_Keluar extends Data {
+public class Barang_Masuk_Keluar extends Abstract {
     int id_barang_masuk;
     Barang id_barang;
     int id_Kelompok;

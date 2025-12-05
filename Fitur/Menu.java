@@ -343,6 +343,10 @@ public class Menu {
 
     public void SearchingBarang(Scanner sc) {
         String key = inputString(sc, "Cari");
+        if (key == null) {
+            System.out.println("Kembali ke menu sebelumnya...");
+            return;
+        }
         boolean ada = false;
         for (Barang b : daftarBarang) {
             if (b.getNama_barang().toLowerCase().contains(key.toLowerCase())) {
