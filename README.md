@@ -14,6 +14,8 @@ StockOne adalah aplikasi inventaris berbasis data yang menyediakan fitur utama u
 - Mengelompokkan barang berdasarkan jenis, dan satuan
 - Menghasilkan laporan otomatis yang mencatat setiap perubahan data aset.
 
+<img width="1171" height="1183" alt="Cd_Sistem_Inventaris drawio" src="https://github.com/user-attachments/assets/64ff94d4-2835-4bed-8cdd-d6b1124bead3" />
+
 Class Diagram terdiri dari :
 - Barang menyimpan data barang seperti nama, kode, jumlah, dan satuan.
 - Barang Masuk & Barang Keluar mencatat transaksi barang yang masuk dan keluar beserta tanggal serta jumlahnya.
@@ -21,10 +23,19 @@ Class Diagram terdiri dari :
 - Laporan mencatat setiap perubahan dan aktivitas dalam sistem oleh staff.
 - Satuan menentukan satuan pengukuran barang seperti unit, pcs, atau liter.
 
-Fitur-Fitur yang Kami Kembangkan
-- Menambahkan untuk memasukkan data baru seperti barang, jenis, atau aset ke dalam sistem.
-- Menghapus untuk menghapus data yang tidak diperlukan agar data tetap akurat.
-- Mengedit untuk memperbarui informasi barang atau aset sesuai kondisi terkini.
-- Usage untuk mencatat dan memantau penggunaan barang dalam operasional toko.
+Berdasarkan class diagram, class diagram kami mencakup:   
+- Fitur Utama:
+- Barang Masuk
+- Barang Keluar
+- Jenis kelompok barang
+- Laporan aset
+- Histori barang
+- Pencarian
+- barang crud
+- Keluar
+Fitur lain:
+- Sistem back
+- Penanganan tipe
+- Peringatan input
 
 kelompok terdiri dari : Garvin, Steven, Mikha, Naura
