@@ -5,5 +5,7 @@ public abstract class Abstract {
 
     public abstract LocalDate getTanggal_masuk();
 
+    public abstract LocalDate getTanggal_keluar();
+
     public abstract String getKondisi();
 }

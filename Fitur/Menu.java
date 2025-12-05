@@ -7,17 +7,29 @@ public class Menu {
     static ArrayList<Barang> daftarBarang = new ArrayList<>();
     static ArrayList<Barang_Masuk_Keluar> daftarBarangMasukKeluar = new ArrayList<>();
     static ArrayList<Jenis_Barang> daftarJenisBarang = new ArrayList<>();
+    static ArrayList<Laporan> daftarLaporan = new ArrayList<>();
+    static int nextIdLaporan = 1;
+
     static int nextId = 1;
     static int nextIdmsk = 1;
     static int kodeDasar = 1000;
 
     public Menu() {
         // Tambahkan contoh jenis barang
-        daftarJenisBarang.add(new Jenis_Barang(1, 1, "Kebutuhan Pokok", "Barang-barang kebutuhan sehari-hari kantor"));
-        daftarJenisBarang.add(new Jenis_Barang(2, 1, "Peralatan Kantor", "Barang elektronik dan perlengkapan kantor"));
-        daftarJenisBarang.add(new Jenis_Barang(3, 2, "Furniture", "Meja, kursi, lemari kantor"));
-        daftarJenisBarang.add(new Jenis_Barang(4, 2, "ATK", "Alat Tulis Kantor"));
-        daftarJenisBarang.add(new Jenis_Barang(5, 3, "Elektronik Lainnya", "Printer, scanner, proyektor"));
+        ID_Kelompok_Aset kelompokPokok = new ID_Kelompok_Aset(1, "Kebutuhan Pokok");
+        ID_Kelompok_Aset kelompokKantor = new ID_Kelompok_Aset(2, "Peralatan Kantor");
+        ID_Kelompok_Aset kelompokFurniture = new ID_Kelompok_Aset(3, "Furniture");
+        ID_Kelompok_Aset kelompokElektronik = new ID_Kelompok_Aset(4, "Elektronik");
+
+        // Tambahkan contoh jenis barang (Jenis_Barang membutuhkan objek KelompokAset)
+        daftarJenisBarang.add(
+                new Jenis_Barang(1, kelompokPokok, "Kebutuhan Pokok", "Barang-barang kebutuhan sehari-hari kantor"));
+        daftarJenisBarang.add(
+                new Jenis_Barang(2, kelompokKantor, "Peralatan Kantor", "Barang elektronik dan perlengkapan kantor"));
+        daftarJenisBarang.add(new Jenis_Barang(3, kelompokFurniture, "Furniture", "Meja, kursi, lemari kantor"));
+        daftarJenisBarang.add(new Jenis_Barang(4, kelompokKantor, "ATK", "Alat Tulis Kantor"));
+        daftarJenisBarang
+                .add(new Jenis_Barang(5, kelompokElektronik, "Elektronik Lainnya", "Printer, scanner, proyektor"));
     }
 
     public void Utama(Scanner sc) {
@@ -110,9 +122,14 @@ public class Menu {
     public void tambahBarang(Scanner sc) {
         System.out.println("\n========== Tambah Aset Barang ==========");
 
-        String nama = inputString(sc, "Nama Barang");
+        String nama = inputString(sc, "Nama Barang").trim();
+        nama = nama.trim();
         if (nama == null)
             return;
+        if (nama.isEmpty()) {
+            System.out.println("Nama barang tidak boleh kosong!");
+            return;
+        }
 
         Integer harga = inputInt(sc, "Harga");
         if (harga == null)
@@ -123,8 +140,10 @@ public class Menu {
             return;
 
         String keterangan = inputString(sc, "Keterangan");
-        if (keterangan == null)
-            return;
+        keterangan = keterangan.trim();
+        if (keterangan.isEmpty()) {
+            keterangan = "-";
+        }
 
         // Pilih jenis
         System.out.println("\n=== Pilih Jenis Barang ===");
@@ -253,15 +272,18 @@ public class Menu {
 
         for (Barang b : daftarBarang) {
 
-            String jenis = (b.getJenisBarang() != null)
-                    ? b.getJenisBarang().getNama_Jenis_Barang()
-                    : "Tidak ada";
+            String jenis = (b.getJenisBarang() != null) ? b.getJenisBarang().getNama_Jenis_Barang() : "Tidak ada";
+
+            String nama = b.getNama_barang();
+            if (nama.length() > 20) {
+                nama = nama.substring(0, 17) + "...";
+            }
 
             System.out.printf("%-5d %-10d %-20s %-20s %-10d %-10.0f%n",
                     b.getId_barang(),
                     b.getKode_barang(),
                     jenis,
-                    b.getNama_barang(),
+                    nama,
                     b.getStock(),
                     b.getHarga_barang());
 
@@ -359,16 +381,48 @@ public class Menu {
     }
 
     public void Laporan(Scanner sc) {
+
+        System.out.println("===== Buat Laporan Aset =====");
+
+        Integer awal = inputInt(sc, "Tanggal Awal (format YYYYMMDD)");
+        if (awal == null)
+            return;
+
+        Integer akhir = inputInt(sc, "Tanggal Akhir (format YYYYMMDD)");
+        if (akhir == null)
+            return;
+
+        // Hitung barang berdasarkan range tanggalCreated
         int totalQty = 0;
         int totalNilai = 0;
 
         for (Barang b : daftarBarang) {
-            totalQty += b.getStock();
-            totalNilai += b.getStock() * b.getHarga_barang();
+            int date = Integer.parseInt(b.getCreated_at().toString().replace("-", ""));
+            if (date >= awal && date <= akhir) {
+                totalQty += b.getStock();
+                totalNilai += b.getStock() * b.getHarga_barang();
+            }
         }
 
-        System.out.println("Total Barang: " + totalQty);
-        System.out.println("Total Nilai : Rp " + totalNilai);
+        // Buat nama otomatis
+        String namaLaporan = "Laporan " + awal + " - " + akhir;
+
+        Laporan lp = new Laporan(
+                nextIdLaporan,
+                namaLaporan,
+                awal,
+                akhir,
+                Integer.parseInt(LocalDate.now().toString().replace("-", "")));
+
+        daftarLaporan.add(lp);
+        nextIdLaporan++;
+
+        System.out.println("\n=== Laporan Dibuat ===");
+        System.out.println("ID Laporan : " + lp.getIdLaporan());
+        System.out.println("Nama       : " + lp.getNamaLaporan());
+        System.out.println("Periode    : " + awal + " - " + akhir);
+        System.out.println("Total Stok : " + totalQty);
+        System.out.println("Total Nilai: Rp " + totalNilai);
     }
 
     public void tampilkanHistory() {

@@ -22,7 +22,7 @@ public class Barang implements Interface.Inter {
         this.harga_barang = harga_barang;
         this.aset_tetap = aset_tetap;
         this.keterangan = keterangan;
-        this.created_at = LocalDate.now();
+        this.created_at = created_at;
     }
 
     public int getId_barang() {

@@ -1,4 +1,4 @@
-public class Satuan {
+public class Satuan implements Interface.Inter_Satuan {
     private int Id_Satuan;
     private String Nama_Satuan;
     private String Keterangan;
@@ -40,7 +40,8 @@ public class Satuan {
         this.Keterangan = Keterangan;
     }
 
-    public static boolean isValidSatuan(String input) {
+    @Override
+    public boolean isValidSatuan(String input) {
         for (String satuan : ListSatuan) {
             if (satuan.equalsIgnoreCase(input)) {
                 return true;
@@ -49,7 +50,8 @@ public class Satuan {
         return false;
     }
 
-    public static void ListSatuan() {
+    @Override
+    public void ShowSatuan() {
         int i = 0;
         System.out.println("Daftar Satuan Unit:");
         for (String satuan : ListSatuan) {

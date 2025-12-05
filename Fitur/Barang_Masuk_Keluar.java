@@ -92,6 +92,7 @@ public class Barang_Masuk_Keluar extends Abstract {
         Ket_Keluar = ket_Keluar;
     }
 
+    @Override
     public LocalDate getTanggal_keluar() {
         return tanggal_keluar;
     }
