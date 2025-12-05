@@ -25,6 +25,7 @@ Berdasarkan class diagram, class diagram kami mencakup:
 - Pencarian: Memungkinkan pencarian barang berdasarkan nama, kode, atau kategori
 - Barang CRUD: Fitur Create, Read, Update, Delete untuk data barang
 - Keluar: Fitur untuk keluar dari aplikasi atau menu
+
 Fitur lain:
 - Sistem back
 - Penanganan tipe
