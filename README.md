@@ -18,13 +18,8 @@ Class Diagram terdiri dari :
 - Barang menyimpan data barang seperti nama, kode, jumlah, dan satuan.
 - Barang Masuk & Barang Keluar mencatat transaksi barang yang masuk dan keluar beserta tanggal serta jumlahnya.
 - Jenis mengelompokkan barang berdasarkan kategori atau tipe.
-- Kelompok Aset mengatur klasifikasi barang sebagai aset tetap atau operasional.
 - Laporan mencatat setiap perubahan dan aktivitas dalam sistem oleh staff.
-- Master menjadi pusat data utama untuk referensi kategori, satuan, dan jenis barang.
-- Perhitungan Fisik menyimpan hasil pengecekan langsung terhadap stok barang di lapangan.
-- Perhitungan Hasil membandingkan hasil stok fisik dengan data yang tercatat di sistem.
 - Satuan menentukan satuan pengukuran barang seperti unit, pcs, atau liter.
-- Staff menyimpan data pengguna atau karyawan yang menggunakan sistem.
 
 Fitur-Fitur yang Kami Kembangkan
 - Menambahkan untuk memasukkan data baru seperti barang, jenis, atau aset ke dalam sistem.
