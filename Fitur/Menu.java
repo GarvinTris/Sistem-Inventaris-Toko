@@ -95,8 +95,9 @@ public class Menu {
 
     public Integer inputInt(Scanner sc, String prompt) {
         String input = inputString(sc, prompt);
-        if (input == null)
+        if (input == null) {
             return null;
+        }
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
@@ -130,7 +131,13 @@ public class Menu {
         for (Jenis_Barang jb : daftarJenisBarang) {
             System.out.println(jb.getId_Jenis_Barang() + ". " + jb.getNama_Jenis_Barang());
         }
-        Integer idJenis = inputInt(sc, "Masukkan ID Jenis Barang");
+        Integer idJenis = inputInt(sc, "Pilih Jenis Barang");
+
+        if (idJenis == null) {
+            System.out.println("Kembali ke menu sebelumnya...");
+            return; // keluar dari method atau lakukan apa yang sesuai
+        }
+
         Jenis_Barang jenisTerpilih = null;
         for (Jenis_Barang jb : daftarJenisBarang) {
             if (jb.getId_Jenis_Barang() == idJenis) {
@@ -166,7 +173,7 @@ public class Menu {
             return;
         }
         tampilkanInfo();
-        Integer id = inputInt(sc, "Masukkan ID Barang");
+        int id = inputInt(sc, "Masukkan ID Barang");
         Barang bmk = getBarangById(id);
         if (bmk == null) {
             System.out.println("Barang tidak ditemukan.");
@@ -188,12 +195,22 @@ public class Menu {
                 return;
 
             switch (pilih) {
-                case 1 -> bmk.setNama_barang(inputString(sc, "Nama Baru"));
-                case 2 -> bmk.setHarga_barang(inputInt(sc, "Harga Baru"));
-                case 3 -> bmk.setStock(inputInt(sc, "Stok Baru"));
-                case 4 -> bmk.setKeterangan(inputString(sc, "Keterangan Baru"));
-                case 5 -> bmk.getId_satuan().setNama_Satuan(inputString(sc, "Satuan Baru"));
-                case 6 -> {
+                case 1:
+                    bmk.setNama_barang(inputString(sc, "Nama Baru"));
+                    break;
+                case 2:
+                    bmk.setHarga_barang(inputInt(sc, "Harga Baru"));
+                    break;
+                case 3:
+                    bmk.setStock(inputInt(sc, "Stok Baru"));
+                    break;
+                case 4:
+                    bmk.setKeterangan(inputString(sc, "Keterangan Baru"));
+                    break;
+                case 5:
+                    bmk.getId_satuan().setNama_Satuan(inputString(sc, "Satuan Baru"));
+                    break;
+                case 6: {
                     System.out.println("=== Pilih Jenis ===");
                     for (Jenis_Barang jb : daftarJenisBarang)
                         System.out.println(jb.getId_Jenis_Barang() + ". " + jb.getNama_Jenis_Barang());
@@ -201,8 +218,13 @@ public class Menu {
                     for (Jenis_Barang jb : daftarJenisBarang)
                         if (jb.getId_Jenis_Barang() == idJ)
                             bmk.setJenisBarang(jb);
+                    break;
                 }
+                default:
+                    System.out.println("Pilihan tidak valid!");
+                    break;
             }
+
             System.out.println("Data berhasil diupdate.");
         }
     }
@@ -210,7 +232,7 @@ public class Menu {
     // Delete
     public void HapusBarang(Scanner sc) {
         tampilkanInfo();
-        Integer id = inputInt(sc, "Masukkan ID Barang");
+        int id = inputInt(sc, "Masukkan ID Barang");
         Barang b = getBarangById(id);
         if (b != null) {
             daftarBarang.remove(b);
@@ -252,6 +274,10 @@ public class Menu {
             return;
         }
         Integer id = inputInt(sc, "ID Barang");
+        if (id == null) {
+            System.out.println("Kembali ke menu sebelumnya...");
+            return;
+        }
         Barang barang = getBarangById(id);
         if (barang == null) {
             System.out.println("Tidak ditemukan.");
@@ -291,6 +317,10 @@ public class Menu {
 
     public void BarangKeluar(Scanner sc) {
         Integer id = inputInt(sc, "ID Barang Masuk");
+        if (id == null) {
+            System.out.println("Kembali ke menu sebelumnya...");
+            return; // user tekan 'b'
+        }
         Barang_Masuk_Keluar data = null;
 
         for (Barang_Masuk_Keluar bm : daftarBarangMasukKeluar)
