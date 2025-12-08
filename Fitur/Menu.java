@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Menu {
 
@@ -295,11 +297,13 @@ public class Menu {
             System.out.println("Belum ada data barang.");
             return;
         }
+
         Integer id = inputInt(sc, "ID Barang");
         if (id == null) {
             System.out.println("Kembali ke menu sebelumnya...");
             return;
         }
+
         Barang barang = getBarangById(id);
         if (barang == null) {
             System.out.println("Tidak ditemukan.");
@@ -319,8 +323,26 @@ public class Menu {
         String kondisi = inputString(sc, "Kondisi (Baik/Buruk)");
         String ket = inputString(sc, "Keterangan");
 
+        Integer qtyMasuk = inputInt(sc, "Jumlah Barang Masuk");
+        if (qtyMasuk == null || qtyMasuk <= 0) {
+            System.out.println("Jumlah barang tidak valid.");
+            return;
+        }
+
         Barang_Masuk_Keluar bm = new Barang_Masuk_Keluar(
-                nextIdmsk, barang, barang.getStock(), serial, kondisi, ket, LocalDate.now(), null, null);
+                nextIdmsk,
+                barang,
+                0, // idKelompok, bisa diubah sesuai kebutuhan
+                serial,
+                kondisi,
+                ket,
+                LocalDate.now(),
+                null,
+                null,
+                qtyMasuk);
+
+        // Update stock barang
+        barang.setStock(barang.getStock() + qtyMasuk);
 
         daftarBarangMasukKeluar.add(bm);
         nextIdmsk++;
@@ -384,45 +406,68 @@ public class Menu {
 
         System.out.println("===== Buat Laporan Aset =====");
 
-        Integer awal = inputInt(sc, "Tanggal Awal (format YYYYMMDD)");
-        if (awal == null)
+        String strAwal = inputString(sc, "Tanggal Awal (format YYYYMMDD)");
+        if (strAwal == null)
             return;
 
-        Integer akhir = inputInt(sc, "Tanggal Akhir (format YYYYMMDD)");
-        if (akhir == null)
+        String strAkhir = inputString(sc, "Tanggal Akhir (format YYYYMMDD)");
+        if (strAkhir == null)
             return;
 
-        // Hitung barang berdasarkan range tanggalCreated
+        DateTimeFormatter inputFmt = DateTimeFormatter.ofPattern("yyyyMMdd");
+        DateTimeFormatter outputFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        LocalDate awalDate;
+        LocalDate akhirDate;
+
+        try {
+            awalDate = LocalDate.parse(strAwal, inputFmt);
+            akhirDate = LocalDate.parse(strAkhir, inputFmt);
+        } catch (DateTimeParseException e) {
+            System.out.println("Format tanggal salah! Gunakan YYYYMMDD.");
+            return;
+        }
+
         int totalQty = 0;
-        int totalNilai = 0;
+        float totalNilai = 0;
 
-        for (Barang b : daftarBarang) {
-            int date = Integer.parseInt(b.getCreated_at().toString().replace("-", ""));
-            if (date >= awal && date <= akhir) {
-                totalQty += b.getStock();
-                totalNilai += b.getStock() * b.getHarga_barang();
+        for (Barang_Masuk_Keluar bm : daftarBarangMasukKeluar) {
+            LocalDate masuk = bm.getTanggal_masuk();
+            if ((masuk.isEqual(awalDate) || masuk.isAfter(awalDate)) &&
+                    (masuk.isEqual(akhirDate) || masuk.isBefore(akhirDate))) {
+
+                Barang b = bm.getId_barang();
+                int qty = bm.getQtyMasuk();
+                totalQty += qty;
+                totalNilai += qty * b.getHarga_barang();
             }
         }
 
-        // Buat nama otomatis
-        String namaLaporan = "Laporan " + awal + " - " + akhir;
+        if (totalQty == 0) {
+            System.out.println("Tidak ada barang yang masuk dalam periode ini.");
+            return;
+        }
+
+        String namaLaporan = "Laporan " + awalDate.format(outputFmt) + " - " + akhirDate.format(outputFmt);
 
         Laporan lp = new Laporan(
                 nextIdLaporan,
                 namaLaporan,
-                awal,
-                akhir,
-                Integer.parseInt(LocalDate.now().toString().replace("-", "")));
+                Integer.parseInt(awalDate.format(inputFmt)),
+                Integer.parseInt(akhirDate.format(inputFmt)),
+                Integer.parseInt(LocalDate.now().format(inputFmt)),
+                totalQty,
+                totalNilai);
 
         daftarLaporan.add(lp);
         nextIdLaporan++;
 
         System.out.println("\n=== Laporan Dibuat ===");
-        System.out.println("ID Laporan : " + lp.getIdLaporan());
-        System.out.println("Nama       : " + lp.getNamaLaporan());
-        System.out.println("Periode    : " + awal + " - " + akhir);
-        System.out.println("Total Stok : " + totalQty);
-        System.out.println("Total Nilai: Rp " + totalNilai);
+        System.out.printf("ID Laporan : %d%n", lp.getIdLaporan());
+        System.out.printf("Nama       : %s%n", lp.getNamaLaporan());
+        System.out.printf("Periode    : %s - %s%n", awalDate.format(outputFmt), akhirDate.format(outputFmt));
+        System.out.printf("Total Stok : %d%n", lp.getTotalQty());
+        System.out.printf("Total Nilai: Rp %.0f%n", lp.getTotalNilai());
     }
 
     public void tampilkanHistory() {

@@ -5,13 +5,18 @@ public class Laporan {
     private int awalLaporan;
     private int akhirLaporan;
     private int dateCreated;
+    private int totalQty;
+    private float totalNilai;
 
-    public Laporan(int idLaporan, String namaLaporan, int awalLaporan, int akhirLaporan, int dateCreated) {
+    public Laporan(int idLaporan, String namaLaporan, int awalLaporan, int akhirLaporan, int dateCreated, int totalQty,
+            float totalNilai) {
         this.idLaporan = idLaporan;
         this.namaLaporan = namaLaporan;
         this.awalLaporan = awalLaporan;
         this.akhirLaporan = akhirLaporan;
         this.dateCreated = dateCreated;
+        this.totalQty = totalQty;
+        this.totalNilai = totalNilai;
     }
 
     public int getIdLaporan() {
@@ -52,5 +57,21 @@ public class Laporan {
 
     public void setDateCreated(int dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public int getTotalQty() {
+        return totalQty;
+    }
+
+    public void setTotalQty(int totalQty) {
+        this.totalQty = totalQty;
+    }
+
+    public float getTotalNilai() {
+        return totalNilai;
+    }
+
+    public void setTotalNilai(float totalNilai) {
+        this.totalNilai = totalNilai;
     }
 }

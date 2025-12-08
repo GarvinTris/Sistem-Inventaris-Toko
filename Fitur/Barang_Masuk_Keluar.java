@@ -10,11 +10,11 @@ public class Barang_Masuk_Keluar extends Abstract {
     LocalDate tanggal_masuk;
     String Ket_Keluar;
     LocalDate tanggal_keluar;
+    int qtyMasuk;
 
-    public Barang_Masuk_Keluar(int id_barang_masuk, Barang id_barang, int id_Kelompok, String serial,
-            String kondisi, String keterangan, LocalDate tanggal_masuk, String ket_Keluar, LocalDate tanggal_keluar) {
+    public Barang_Masuk_Keluar(int id_barang_masuk, Barang id_barang, int id_Kelompok, String serial, String kondisi,
+            String keterangan, LocalDate tanggal_masuk, String ket_Keluar, LocalDate tanggal_keluar, int qtyMasuk) {
         this.id_barang_masuk = id_barang_masuk;
-
         this.id_barang = id_barang;
         this.id_Kelompok = id_Kelompok;
         this.serial = serial;
@@ -23,6 +23,7 @@ public class Barang_Masuk_Keluar extends Abstract {
         this.tanggal_masuk = tanggal_masuk;
         Ket_Keluar = ket_Keluar;
         this.tanggal_keluar = tanggal_keluar;
+        this.qtyMasuk = qtyMasuk;
     }
 
     public int getId_barang_masuk() {
@@ -99,6 +100,14 @@ public class Barang_Masuk_Keluar extends Abstract {
 
     public void setTanggal_keluar(LocalDate tanggal_keluar) {
         this.tanggal_keluar = tanggal_keluar;
+    }
+
+    public int getQtyMasuk() {
+        return qtyMasuk;
+    }
+
+    public void setQtyMasuk(int qtyMasuk) {
+        this.qtyMasuk = qtyMasuk;
     }
 
 }
