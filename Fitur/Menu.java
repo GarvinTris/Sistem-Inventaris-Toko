@@ -78,7 +78,7 @@ public class Menu {
                     SearchingBarang(sc);
                     break;
                 case 8:
-                    Laporan(sc);
+                    laporanMenu(sc);
                     break;
                 case 9:
                     tampilkanHistory();
@@ -402,8 +402,40 @@ public class Menu {
             System.out.println("Tidak ditemukan.");
     }
 
-    public void Laporan(Scanner sc) {
+    public void laporanMenu(Scanner sc) {
+        while (true) {
+            System.out.println("\n===== MENU LAPORAN =====");
+            System.out.println("1. Buat Laporan");
+            System.out.println("2. Tampilkan Laporan");
+            System.out.println("3. Edit Laporan");
+            System.out.println("4. Hapus Laporan");
+            System.out.println("5. Kembali");
+            Integer pilih = inputInt(sc, "Pilih menu");
 
+            if (pilih == null || pilih == 5)
+                return;
+
+            switch (pilih) {
+                case 1:
+                    buatLaporan(sc);
+                    break;
+                case 2:
+                    tampilkanLaporan();
+                    break;
+                case 3:
+                    editLaporan(sc);
+                    break;
+                case 4:
+                    hapusLaporan(sc);
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid!");
+            }
+        }
+    }
+
+    // Create
+    public void buatLaporan(Scanner sc) {
         System.out.println("===== Buat Laporan Aset =====");
 
         String strAwal = inputString(sc, "Tanggal Awal (format YYYYMMDD)");
@@ -419,7 +451,6 @@ public class Menu {
 
         LocalDate awalDate;
         LocalDate akhirDate;
-
         try {
             awalDate = LocalDate.parse(strAwal, inputFmt);
             akhirDate = LocalDate.parse(strAkhir, inputFmt);
@@ -435,7 +466,6 @@ public class Menu {
             LocalDate masuk = bm.getTanggal_masuk();
             if ((masuk.isEqual(awalDate) || masuk.isAfter(awalDate)) &&
                     (masuk.isEqual(akhirDate) || masuk.isBefore(akhirDate))) {
-
                 Barang b = bm.getId_barang();
                 int qty = bm.getQtyMasuk();
                 totalQty += qty;
@@ -448,7 +478,9 @@ public class Menu {
             return;
         }
 
-        String namaLaporan = "Laporan " + awalDate.format(outputFmt) + " - " + akhirDate.format(outputFmt);
+        String namaLaporan = inputString(sc, "Nama Laporan");
+        if (namaLaporan == null)
+            return;
 
         Laporan lp = new Laporan(
                 nextIdLaporan,
@@ -468,6 +500,75 @@ public class Menu {
         System.out.printf("Periode    : %s - %s%n", awalDate.format(outputFmt), akhirDate.format(outputFmt));
         System.out.printf("Total Stok : %d%n", lp.getTotalQty());
         System.out.printf("Total Nilai: Rp %.0f%n", lp.getTotalNilai());
+    }
+
+    // Read
+    public void tampilkanLaporan() {
+        if (daftarLaporan.isEmpty()) {
+            System.out.println("Belum ada laporan.");
+            return;
+        }
+
+        System.out.printf("%-5s %-20s %-12s %-12s %-10s %-12s%n",
+                "ID", "Nama Laporan", "Awal", "Akhir", "TotalQty", "TotalNilai");
+        for (Laporan lp : daftarLaporan) {
+            System.out.printf("%-5d %-20s %-12d %-12d %-10d Rp %-12.0f%n",
+                    lp.getIdLaporan(), lp.getNamaLaporan(),
+                    lp.getAwalLaporan(), lp.getAkhirLaporan(),
+                    lp.getTotalQty(), lp.getTotalNilai());
+        }
+    }
+
+    // Update
+    public void editLaporan(Scanner sc) {
+        if (daftarLaporan.isEmpty()) {
+            System.out.println("Belum ada laporan.");
+            return;
+        }
+
+        int id = inputInt(sc, "Masukkan ID Laporan yang ingin diubah");
+        Laporan lp = null;
+        for (Laporan l : daftarLaporan) {
+            if (l.getIdLaporan() == id)
+                lp = l;
+        }
+
+        if (lp == null) {
+            System.out.println("Laporan tidak ditemukan.");
+            return;
+        }
+
+        String namaBaru = inputString(sc, "Nama Laporan Baru");
+        if (namaBaru != null && !namaBaru.isBlank()) {
+            lp.setNamaLaporan(namaBaru);
+            System.out.println("Nama laporan berhasil diupdate.");
+        } else {
+            System.out.println("Tidak ada perubahan nama.");
+        }
+
+        // Bisa ditambahkan update tanggal & recalc totalQty & totalNilai jika perlu
+    }
+
+    // Delete
+    public void hapusLaporan(Scanner sc) {
+        if (daftarLaporan.isEmpty()) {
+            System.out.println("Belum ada laporan.");
+            return;
+        }
+
+        int id = inputInt(sc, "Masukkan ID Laporan yang ingin dihapus");
+        Laporan lp = null;
+        for (Laporan l : daftarLaporan) {
+            if (l.getIdLaporan() == id)
+                lp = l;
+        }
+
+        if (lp != null) {
+            daftarLaporan.remove(lp);
+            System.out.println("Laporan berhasil dihapus.");
+        } else {
+            System.out.println("Laporan tidak ditemukan.");
+        }
     }
 
     public void tampilkanHistory() {
