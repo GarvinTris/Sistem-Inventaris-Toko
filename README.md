@@ -24,6 +24,7 @@ Berdasarkan class diagram, class diagram kami mencakup:
 - Histori Barang: Mencatat riwayat perubahan atau transaksi barang
 - Pencarian: Memungkinkan pencarian barang berdasarkan nama, kode, atau kategori
 - Barang CRUD: Fitur Create, Read, Update, Delete untuk data barang
+- Laporan CRUD: sama halnya seperti Barang CRUD, namun khusus laporan.
 - Keluar: Fitur untuk keluar dari aplikasi atau menu
 
 Fitur lain:
