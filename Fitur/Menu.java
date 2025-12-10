@@ -120,18 +120,37 @@ public class Menu {
         }
     }
 
+    public Float InputHarga(Scanner sc, String prompt) {
+        System.out.print(prompt + " (ketik 'b' untuk kembali): ");
+        String input = sc.nextLine().trim();
+        if (input.equalsIgnoreCase("b"))
+            return null;
+
+        try {
+            float value = Float.parseFloat(input);
+            if (value < 0) {
+                System.out.println("Input tidak boleh negatif!");
+                return InputHarga(sc, prompt); // ulang input
+            }
+            return value;
+        } catch (NumberFormatException e) {
+            System.out.println("Input tidak valid! Masukkan angka.");
+            return InputHarga(sc, prompt); // ulang input
+        }
+    }
+
     // Create
     public void tambahBarang(Scanner sc) {
         System.out.println("\n========== Tambah Aset Barang ==========");
 
-        String nama = inputString(sc, "Nama Barang").trim();
-        nama = nama.trim();
+        String nama = inputString(sc, "Nama Barang");
         if (nama == null)
             return;
         if (nama.isEmpty()) {
             System.out.println("Nama barang tidak boleh kosong!");
             return;
         }
+        nama = nama.trim();
 
         Integer harga = inputInt(sc, "Harga");
         if (harga == null)
@@ -194,7 +213,11 @@ public class Menu {
             return;
         }
         tampilkanInfo();
-        int id = inputInt(sc, "Masukkan ID Barang");
+        Integer id = inputInt(sc, "Masukkan ID Barang");
+        if (id == null) { // user memilih kembali
+            System.out.println("Kembali ke menu sebelumnya...");
+            return;
+        }
         Barang bmk = getBarangById(id);
         if (bmk == null) {
             System.out.println("Barang tidak ditemukan.");
@@ -220,22 +243,44 @@ public class Menu {
                     bmk.setNama_barang(inputString(sc, "Nama Baru"));
                     break;
                 case 2:
-                    bmk.setHarga_barang(inputInt(sc, "Harga Baru"));
-                    break;
+                    Float harga = InputHarga(sc, "Harga Baru");
+                    if (harga == null) {
+                        System.out.println("Kembali ke menu sebelumnya...");
+                        break;
+                    }
+                    if (harga <= 0) {
+                        System.out.println("Harga harus lebih dari 0!");
+                        break;
+                    }
+                    bmk.setHarga_barang(harga);
                 case 3:
-                    bmk.setStock(inputInt(sc, "Stok Baru"));
+                    Integer stock = inputInt(sc, "Stok Baru");
+                    if (stock == null || stock < 0) {
+                        System.out.println("Stok tidak valid!");
+                        break;
+                    }
+                    bmk.setStock(stock);
                     break;
                 case 4:
                     bmk.setKeterangan(inputString(sc, "Keterangan Baru"));
                     break;
                 case 5:
-                    bmk.getId_satuan().setNama_Satuan(inputString(sc, "Satuan Baru"));
+                    Integer id_satuan = inputInt(sc, "ID Satuan Baru");
+                    if (id_satuan == null) {
+                        System.out.println("Kembali ke menu sebelumnya...");
+                        return;
+                    }
+                    bmk.getId_satuan().setNama_Satuan(id_satuan.toString());
                     break;
                 case 6: {
                     System.out.println("=== Pilih Jenis ===");
                     for (Jenis_Barang jb : daftarJenisBarang)
                         System.out.println(jb.getId_Jenis_Barang() + ". " + jb.getNama_Jenis_Barang());
                     Integer idJ = inputInt(sc, "Masukkan ID Jenis");
+                    if (idJ == null) { // user memilih kembali
+                        System.out.println("Kembali ke menu sebelumnya...");
+                        return;
+                    }
                     for (Jenis_Barang jb : daftarJenisBarang)
                         if (jb.getId_Jenis_Barang() == idJ)
                             bmk.setJenisBarang(jb);
@@ -252,8 +297,18 @@ public class Menu {
 
     // Delete
     public void HapusBarang(Scanner sc) {
+        if (daftarBarang.isEmpty()) {
+            System.out.println("Belum ada data barang.");
+            return;
+        }
         tampilkanInfo();
-        int id = inputInt(sc, "Masukkan ID Barang");
+        Integer id = inputInt(sc, "Masukkan ID Barang");
+
+        if (id == null) { // user memilih kembali
+            System.out.println("Kembali ke menu sebelumnya...");
+            return;
+        }
+
         Barang b = getBarangById(id);
         if (b != null) {
             daftarBarang.remove(b);
@@ -313,6 +368,10 @@ public class Menu {
         String serial;
         while (true) {
             serial = inputString(sc, "Serial");
+            if (serial == null) {
+                System.out.println("Kembali ke menu sebelumnya...");
+                return;
+            }
             if (!isSerialValid(serial)) {
                 System.out.println("Serial sudah ada!");
                 continue;
@@ -320,8 +379,27 @@ public class Menu {
             break;
         }
 
-        String kondisi = inputString(sc, "Kondisi (Baik/Buruk)");
+        String kondisi;
+        while (true) {
+            kondisi = inputString(sc, "Kondisi (Baik/Buruk)");
+            if (kondisi == null) {
+                System.out.println("Kembali ke menu sebelumnya...");
+                return;
+            }
+
+            if (kondisi.equalsIgnoreCase("Baik") || kondisi.equalsIgnoreCase("Buruk")) {
+                kondisi = kondisi.substring(0, 1).toUpperCase() + kondisi.substring(1).toLowerCase();
+                break;
+            } else {
+                System.out.println("Kondisi harus 'Baik' atau 'Buruk'.");
+            }
+        }
+
         String ket = inputString(sc, "Keterangan");
+        if (ket == null) {
+            System.out.println("Kembali ke menu sebelumnya...");
+            return;
+        }
 
         Integer qtyMasuk = inputInt(sc, "Jumlah Barang Masuk");
         if (qtyMasuk == null || qtyMasuk <= 0) {
@@ -332,7 +410,7 @@ public class Menu {
         Barang_Masuk_Keluar bm = new Barang_Masuk_Keluar(
                 nextIdmsk,
                 barang,
-                0, // idKelompok, bisa diubah sesuai kebutuhan
+                0,
                 serial,
                 kondisi,
                 ket,
@@ -360,6 +438,10 @@ public class Menu {
     }
 
     public void BarangKeluar(Scanner sc) {
+        if (daftarBarang.isEmpty()) {
+            System.out.println("Belum ada data barang.");
+            return;
+        }
         Integer id = inputInt(sc, "ID Barang Masuk");
         if (id == null) {
             System.out.println("Kembali ke menu sebelumnya...");
@@ -386,7 +468,11 @@ public class Menu {
     }
 
     public void SearchingBarang(Scanner sc) {
-        String key = inputString(sc, "Cari");
+        if (daftarBarang.isEmpty()) {
+            System.out.println("Belum ada data barang.");
+            return;
+        }
+        String key = inputString(sc, "Pencarian (berlaku untuk nama barang)");
         if (key == null) {
             System.out.println("Kembali ke menu sebelumnya...");
             return;
@@ -400,9 +486,14 @@ public class Menu {
         }
         if (!ada)
             System.out.println("Tidak ditemukan.");
+        sc.nextLine();
     }
 
     public void laporanMenu(Scanner sc) {
+        if (daftarBarang.isEmpty()) {
+            System.out.println("Belum ada data barang.");
+            return;
+        }
         while (true) {
             System.out.println("\n===== MENU LAPORAN =====");
             System.out.println("1. Buat Laporan");
@@ -438,24 +529,45 @@ public class Menu {
     public void buatLaporan(Scanner sc) {
         System.out.println("===== Buat Laporan Aset =====");
 
-        String strAwal = inputString(sc, "Tanggal Awal (format YYYYMMDD)");
-        if (strAwal == null)
-            return;
-
-        String strAkhir = inputString(sc, "Tanggal Akhir (format YYYYMMDD)");
-        if (strAkhir == null)
-            return;
-
         DateTimeFormatter inputFmt = DateTimeFormatter.ofPattern("yyyyMMdd");
         DateTimeFormatter outputFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+        String strAwal = inputString(sc, "Tanggal Awal (format YYYYMMDD)");
+        if (strAwal == null) {
+            System.out.println("Kembali...");
+            return;
+        }
+
         LocalDate awalDate;
-        LocalDate akhirDate;
         try {
             awalDate = LocalDate.parse(strAwal, inputFmt);
+        } catch (DateTimeParseException e) {
+            System.out.println("Format tanggal salah!");
+            return;
+        }
+
+        if (awalDate.isBefore(LocalDate.now())) {
+            System.out.println("Tanggal awal tidak boleh lebih kecil dari tanggal hari ini (" +
+                    LocalDate.now().format(outputFmt) + ").");
+            return;
+        }
+
+        String strAkhir = inputString(sc, "Tanggal Akhir (format YYYYMMDD)");
+        if (strAkhir == null) {
+            System.out.println("Kembali...");
+            return;
+        }
+
+        LocalDate akhirDate;
+        try {
             akhirDate = LocalDate.parse(strAkhir, inputFmt);
         } catch (DateTimeParseException e) {
-            System.out.println("Format tanggal salah! Gunakan YYYYMMDD.");
+            System.out.println("Format tanggal salah!");
+            return;
+        }
+
+        if (akhirDate.isBefore(awalDate)) {
+            System.out.println("Tanggal akhir tidak boleh lebih kecil daripada tanggal awal.");
             return;
         }
 
@@ -463,9 +575,15 @@ public class Menu {
         float totalNilai = 0;
 
         for (Barang_Masuk_Keluar bm : daftarBarangMasukKeluar) {
+
             LocalDate masuk = bm.getTanggal_masuk();
-            if ((masuk.isEqual(awalDate) || masuk.isAfter(awalDate)) &&
-                    (masuk.isEqual(akhirDate) || masuk.isBefore(akhirDate))) {
+            if (masuk == null)
+                continue;
+
+            boolean dalamRange = (!masuk.isBefore(awalDate)) && // masuk >= awal
+                    (!masuk.isAfter(akhirDate)); // masuk <= akhir
+
+            if (dalamRange) {
                 Barang b = bm.getId_barang();
                 int qty = bm.getQtyMasuk();
                 totalQty += qty;
@@ -526,7 +644,11 @@ public class Menu {
             return;
         }
 
-        int id = inputInt(sc, "Masukkan ID Laporan yang ingin diubah");
+        Integer id = inputInt(sc, "Masukkan ID Laporan yang ingin diubah");
+        if (id == null) { // user memilih kembali
+            System.out.println("Kembali ke menu sebelumnya...");
+            return;
+        }
         Laporan lp = null;
         for (Laporan l : daftarLaporan) {
             if (l.getIdLaporan() == id)
@@ -556,7 +678,12 @@ public class Menu {
             return;
         }
 
-        int id = inputInt(sc, "Masukkan ID Laporan yang ingin dihapus");
+        Integer id = inputInt(sc, "Masukkan ID Laporan yang ingin dihapus");
+
+        if (id == null) { // user memilih kembali
+            System.out.println("Kembali ke menu sebelumnya...");
+            return;
+        }
         Laporan lp = null;
         for (Laporan l : daftarLaporan) {
             if (l.getIdLaporan() == id)
